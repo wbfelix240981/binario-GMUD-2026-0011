@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMUD-2026-0011 · Migração Cloud 2.0 → 3.0 — Binario / Gimba</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI2IiBmaWxsPSIjMGMyMzM0Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjEsMTIpIHNjYWxlKDAuNzIpIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAzNy40N2M1LjMxNCA1LjU4NiA2Ljc4NSA3LjEwNSAxNC43MzcgNy42MzcgMy4yMTguMjE1IDE2LjEtLjU0NSAxOC4wMjMuNDgzLjg5NSAxLjQyNi42NTYgNi4yMzcuNjU0IDguMTA2bC0uMDI2IDE5LjcyNmMtLjAxMSAxMC41LTEuMzQ4IDE5LjUyNCA3LjA3OCAyNy4zMTRhMjEuNTYgMjEuNTYgMCAwIDAgOS45MTIgNS4yODdjNS4wOTggMS4xODMgMTAuMjg4LjQ1NCAxNC43NDUtMi4zNDdBMTkuMyAxOS4zIDAgMCAwIDczLjggOTEuNjE3Yy45Mi00LjEzMy44NjYtMjUuODMzLjA2My0zMC4xNTNhMjEuNyAyMS43IDAgMCAwLTMuMTM0LTcuOTQgMjEgMjEgMCAwIDAtMTMuMzk4LTkuMzk2Yy00LjM0OC0uOTUtOS45OC0uNDkyLTE0LjUxLS40OTUtNS4wMDMtLjAwNC04LjQtMi45MTQtNi44OS04LjE3M0M0MC42OCAxOC45IDU2LjM1NSAxNS45MzQgNzEuMjMyIDE5LjZhNDguMTMgNDguMTMgMCAwIDEgMjkuODMgMjEuODUzYzcuMzE4IDEyLjEwOCA2Ljk1NyAyMi4xNzMgNi44MTYgMzUuNzI5LS4wNjkgNi42NjMuMzAxIDExLjU1OC0xLjM1IDE4LjIwOWE0Ny45MyA0Ny45MyAwIDAgMS0yMS44MjMgMjkuNTU1Yy0xMC43MyA2LjQ1Mi0xOS44MjMgNy4xMjYtMzIuMDAzIDYuODgzLTYuMzkxLS4xMjgtMTAuMjQ0LjE1Mi0xNi42OTUtMS40NjZhNDggNDggMCAwIDEtMjkuNDY2LTIxLjkxNEE0Ny42IDQ3LjYgMCAwIDEgLjc0NCA5My4zOTdjLS4xNS0uNzQ4LS4zNC0xLjk2Ny0uNzQ0LTIuNTh6Ii8+PHBhdGggZmlsbD0iIzEyOWFkNyIgZD0iTTAgMGgzMi4zMjZjLjY5Ljk2Ljg2OCAxLjc5Mi45OTYgMi45MzUuNzY2IDYuODY2LjIzMSAxNS45NzcuMjE1IDIzLjAyLS4wMSA0LjQ5Mi40OSAxMC43OTktLjIgMTUuMTEzLS4xMTguNzQtLjIgMS40NC0uODQxIDEuODk3LTIuMTM1IDEuNTItMTguMjE1Ljg4LTIxLjIzNS4zMDYtMy44MzMtLjcyOC02LjU5LTIuMDY4LTguODItNS4zNkMxLjQxIDM2LjM5My44OTYgMzQuNzUgMCAzMy4yMzd6Ii8+PC9nPjwvc3ZnPg==">
+<style>
+  :root{
+    --bg:#081820;--panel:#102a3d;--border:rgba(72,158,198,.22);
+    --accent:#1ba3d4;--accent2:#2bd4b4;--warn:#f5a623;
+    --danger:#ff5a6e;--text:#e8f1f6;--muted:#8099ab;--pending:#15303f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:radial-gradient(1100px 480px at 50% -8%,rgba(27,163,212,.10),transparent 60%),linear-gradient(165deg,#0c2334 0%,#0a1c29 45%,#07151d 100%) fixed;background-color:#081820;color:var(--text);font-family:'Segoe UI',Arial,sans-serif;font-weight:300;min-height:100vh;padding:28px;}
+  .mono{font-family:'Courier New',Courier,monospace;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+  .header{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;margin-bottom:32px;}
+  .brand-row{display:flex;align-items:center;gap:16px;margin-bottom:12px;}
+  .live-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(27,163,212,.35);border-radius:3px;}
+  .live-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 1.4s infinite;flex-shrink:0;}
+  h1{font-size:27px;font-weight:700;color:#ffffff;line-height:1.15;}
+  .tagline{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:10px;}
+  .right-col{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .card-corner{position:relative;border:1px solid var(--border);background:var(--panel);text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+  .card-corner::before{content:'';position:absolute;top:-1px;left:-1px;width:10px;height:10px;border-top:2px solid var(--accent);border-left:2px solid var(--accent);}
+  .card-corner::after{content:'';position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);}
+  .clock-wrap{padding:16px 32px;}
+  .clock-lbl{font-size:8px;letter-spacing:3px;color:var(--muted);margin-bottom:5px;font-weight:700;}
+  .clock-time{font-size:32px;color:var(--text);letter-spacing:5px;font-weight:700;}
+  .clock-date{font-size:10px;color:var(--muted);margin-top:3px;}
+  .type-row{display:flex;gap:8px;}
+  .type-card{border:1px solid var(--border);background:var(--panel);padding:14px 22px;text-align:center;min-width:108px;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+  .type-lbl{font-size:8px;letter-spacing:2.5px;color:var(--muted);margin-bottom:6px;font-weight:700;}
+  .type-val{font-size:26px;font-weight:700;letter-spacing:2px;color:var(--text);}
+  .bar-track{height:2px;background:var(--pending);margin-top:8px;overflow:hidden;border-radius:1px;}
+  .bar-fill{height:100%;transition:width .5s ease;}
+
+  .section{border:1px solid var(--border);background:var(--panel);margin-bottom:20px;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+  .section-pad{padding:18px 24px;}
+  .section-title{font-size:8px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:14px;font-weight:700;}
+
+  .tl-bar-wrap{position:relative;height:34px;}
+  .tl-bar{position:absolute;left:0;top:16px;right:0;height:14px;background:var(--pending);overflow:hidden;border-radius:2px;}
+  .tl-prog{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,rgba(43,212,180,.3),rgba(43,212,180,.6));border-right:3px solid var(--accent2);box-shadow:0 0 14px rgba(43,212,180,.3);transition:width .6s ease;}
+  .tl-foot{display:flex;justify-content:space-between;margin-top:5px;}
+  .tl-foot span{font-size:8px;color:var(--muted);font-weight:700;}
+
+  .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px;}
+  .stat-card{border-left:4px solid;background:var(--panel);padding:16px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.25);border-radius:4px;}
+  .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0px;}
+  .sc-blue{border-left-color:var(--accent);}
+  .sc-green{border-left-color:var(--accent2);}
+  .sc-warn{border-left-color:var(--warn);}
+  .sc-muted{border-left-color:var(--muted);}
+  .sc-red{border-left-color:var(--danger);}
+  .stat-num{font-size:32px;font-weight:700;margin-bottom:4px;color:var(--text);}
+  .stat-lbl{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+
+  .act-grid{display:grid;grid-template-columns:44px 1fr 120px 80px 80px 110px 130px;gap:0;}
+  .act-header .act-grid{padding:10px 20px;border-bottom:1px solid var(--border);background:rgba(27,163,212,.04);}
+  .act-header .act-grid > *{font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:center;padding:0 4px;font-weight:700;}
+  .act-header .act-grid > *:nth-child(2){text-align:left;}
+  .act-body-row{padding:13px 20px;border-bottom:1px solid rgba(255,255,255,.07);transition:background .15s;}
+  .act-body-row:hover{background:rgba(27,163,212,.04);}
+  .act-body-row:last-child{border-bottom:none;}
+  .act-body-row .act-grid > *{display:flex;align-items:center;justify-content:center;padding:0 4px;font-size:11px;}
+  .act-body-row .act-grid > *:nth-child(2){justify-content:flex-start;}
+  .act-time-cell{font-size:10px;color:var(--muted);text-align:center;display:block !important;line-height:1.6;}
+  .rt-input{width:58px;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--accent);font-size:10px;outline:none;padding:2px 4px;text-align:center;}
+  .pct-row{display:flex;align-items:center;gap:5px;width:100%;}
+  .pct-inp{width:44px;background:transparent;border:1px solid var(--border);color:var(--accent);font-size:11px;padding:3px 4px;text-align:right;outline:none;}
+  .pct-lbl{font-size:10px;color:var(--muted);}
+  .mini-bar{height:3px;background:var(--pending);flex:1;overflow:hidden;border-radius:2px;}
+  .mini-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .4s;}
+  .pill{display:inline-block;font-size:8px;letter-spacing:1.5px;padding:4px 10px;border:1px solid;text-transform:uppercase;cursor:pointer;white-space:nowrap;border-radius:12px;}
+  .s-pending {color:var(--muted);  border-color:var(--muted);}
+  .s-progress{color:var(--accent); border-color:var(--accent); background:rgba(27,163,212,.08);}
+  .s-done    {color:var(--accent2);border-color:var(--accent2);background:rgba(43,212,180,.08);}
+  .s-blocked {color:var(--danger); border-color:var(--danger); background:rgba(255,71,87,.08);}
+
+  .phase-panel{background:rgba(27,163,212,.04);border-bottom:1px solid rgba(255,255,255,.07);padding:14px 48px 18px;}
+  .phase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px;margin-top:10px;}
+  .phase-card{border:1px solid var(--border);background:var(--panel);padding:10px;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+  .phase-head{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .vm-list{border-top:1px solid var(--border);padding-top:6px;margin-top:4px;background:rgba(0,0,0,.4);padding:8px 6px;border-radius:3px;margin:4px -6px -6px -6px;}
+  .vm-row{display:flex;align-items:center;gap:6px;padding:4px 0;cursor:pointer;}
+  .vm-check{width:13px;height:13px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:2px;}
+  .vm-badge{font-size:7px;padding:0 3px;border:1px solid;flex-shrink:0;line-height:13px;border-radius:2px;}
+  .vm-name{font-size:9px;}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+  .panel-box{border:1px solid var(--border);background:var(--panel);padding:18px 22px;display:flex;flex-direction:column;box-shadow:0 6px 20px rgba(0,0,0,.25);border-radius:4px;}
+  .obs-box{background:rgba(27,163,212,.04);border:1px solid var(--border);padding:12px 14px;margin-top:10px;line-height:1.75;font-size:12px;height:130px;overflow-y:auto;border-radius:4px;}
+  .btn-row{display:flex;gap:10px;margin-top:12px;}
+  .btn{font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;border:1px solid;cursor:pointer;background:transparent;transition:background .2s;border-radius:4px;}
+  .btn-a{color:var(--accent);border-color:var(--accent);} .btn-a:hover{background:rgba(27,163,212,.08);}
+
+  .cp-item{display:grid;grid-template-columns:130px 1fr auto;gap:12px;align-items:center;padding:9px 14px;background:rgba(27,163,212,.04);border:1px solid var(--border);margin-bottom:6px;border-radius:4px;}
+  .footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border);margin-top:4px;}
+  .footer-txt{font-size:8px;color:var(--muted);letter-spacing:2px;font-weight:600;}
+
+  #report-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;align-items:center;justify-content:center;padding:40px;}
+  .report-inner{background:var(--panel);border:1px solid var(--accent);max-width:720px;width:100%;padding:36px;max-height:82vh;overflow-y:auto;position:relative;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="brand-row">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513 190" style="height:64px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(18,154,215,.4));"><path fill="#fff" d="M148.949 43.28c2.524.303 16.612.24 19.178-.025-.173 3.18-.043 7.54-.04 10.795l-.019 19.49c3.047-2.703 6.511-4.246 10.502-4.958 16.944-3.023 29.188 7.185 32.179 23.475a37.25 37.25 0 0 1-6.016 28.371c-10.556 13.294-27.911 13.822-43.289 11.223-4.188-.708-8.228-2.012-12.372-2.869-.307-9.076-.123-19.067-.122-28.213zm19.161 72.637c4.567.812 6.931 1.182 11.679.691 7.786-1.796 11.493-7.319 12.078-15.13.604-8.066-2.491-16.624-11.734-16.999-3.588.145-6.268.53-8.852 3.283-2.825 3.01-3.169 7.177-3.201 11.102-.044 5.685.001 11.369.03 17.053"/><path fill="#fff" d="M339.028 67.204c34.559.139 27.71 29.154 28.369 53.832.087 3.278-.096 6.648.032 9.933-3.796-.371-14.342-.251-18.23-.041.02-1.705-.211-3.837-.352-5.568-8.015 8.565-22.845 9.745-32.415 2.96-2.207-1.564-3.537-3.56-4.909-5.848a21.87 21.87 0 0 1-1.784-11.05c2.113-19.824 23.797-21.474 39.405-19.77-1.844-9.891-8.252-10.201-17.299-9.128-4.507.534-8.13 2.601-12.074 4.682-1.532-1.84-6.263-9.412-7.833-11.796 8.661-6.352 16.692-7.786 27.09-8.206m-.7 51.659c9.476-1.307 10.415-6.843 10.691-15.059-2.812-.29-6.909-.752-9.684-.326-3.532.337-6.98.689-9.446 3.641a7.58 7.58 0 0 0-1.694 5.596c.517 5.352 5.76 6.353 10.133 6.148"/><path fill="#fff" d="M281.51 67.95c5.636-.253 12.089 1.314 16.456 5.032 8.057 6.857 7.445 16.92 7.438 26.504l-.036 19.897c-.008 3.437-.152 8.334.115 11.633-3.247-.352-16.106-.341-19.379-.003.477-11.819-.142-24.053.008-35.905.146-11.519-11.871-13.816-18.828-6.05-1.199 1.731-2.202 3.848-2.37 5.982-.718 9.09-.152 18.347-.307 27.474-.046 2.737-.048 5.789.138 8.497-3.016-.357-16.313-.325-19.422-.011.084-2.985.117-6.14.068-9.125-.287-17.424.426-35.116-.089-52.512 5.342.296 13.009.046 18.569.043l.458 6.05c4.849-5.082 10.37-7.014 17.181-7.507"/><path fill="#fff" d="M409.8 68.206c3.732-.102 5.737.193 9.359.762-.364 3.83-2.315 13.51-3.127 17.374-8.494-2.729-19.111-.225-20.987 9.682-1.116 5.887-.553 13.2-.626 19.266-.062 5.077-.198 10.65.04 15.687-3.92-.383-11.788-.175-15.984-.185-1.078.021-2.299.138-3.387.218.2-4.039.086-8.832.086-12.914l.005-22.316.003-16.264c.002-3.079.118-7.151-.161-10.157 5.747.272 12.999-.002 18.933.09-.201 2.397.071 4.913.255 7.319q.187-.234.382-.462c4.629-5.423 8.213-7.521 15.209-8.1"/><path fill="#129ad7" d="m440.442 69.23.489-.02c.363.56-.031 55.325.221 61.815-4.141-.407-15.509-.272-19.717-.027.077-20.494.198-41.319-.016-61.795 5.196.338 13.807.261 19.023.026"/><path fill="#fff" d="M217.366 69.358c4.837.316 14.294.087 19.266-.002-.026 6.326.301 60.697-.232 61.579-2.912-.292-16.1-.224-19.063.063.279-20.337.069-41.266.029-61.64"/><path fill="#129ad7" d="M504.222 146.024q3.108-.015 6.214.065c.307 3.681.083 10.416.084 14.376l.008 28.31c-2.121-.146-4.547.469-6.006-.821-.517-.764-.404-1.7-.402-2.637-4.307 3.882-8.107 4.979-13.706 3.251q-.452-.194-.897-.401c-3.42-1.594-5.44-4.075-6.746-7.575-5.211-13.968 7.254-27.517 21.476-20.69-.126-1.449-.331-12.774-.025-13.878m-8.247 38.042c10.14-1.772 7.998-9.764 8.143-17.753.047-2.6-6.146-2.811-7.84-2.74-10.787 1.839-11.619 18.958-.303 20.493"/><path fill="#129ad7" d="M430.482 158.038c22.915-1.324 23.06 28.158 4.805 31.123l-.194.035c-3.887.664-8.298-.367-11.508-2.654a15.55 15.55 0 0 1-6.226-9.938c-1.566-9.373 3.675-17.075 13.123-18.566m4.074 25.697c13.177-4.61 7.231-22.134-3.065-20.482-2.828.616-4.86 1.805-6.467 4.302a11.22 11.22 0 0 0-1.502 8.463c1.187 5.268 5.603 8.636 11.034 7.717"/><path fill="#129ad7" d="M385.39 145.275c8.666-1.144 13.848 2.254 19.367 8.314-1.676 1.547-3.022 2.829-4.88 4.164-2.013-2.788-5.459-5.808-8.886-6.43-19.583-3.559-23.986 27.091-6.076 31.712 3.535.912 7.581-.095 10.613-2.039 1.791-1.331 2.919-2.492 4.495-4.056 1.667 1.244 5.532 3.253 3.381 5.625-7.24 7.984-19.594 9.244-28.313 2.876-9.837-7.185-10.844-22.941-3.815-32.365 3.609-4.86 8.3-6.973 14.114-7.801"/><path fill="#129ad7" d="M474.471 158.817c1.047-.043 2.899.13 4.005.203.227 3.061.033 7.915.021 11.139l.004 18.513c-1.967.069-4.232-.067-6.221-.139-.011-1.144.129-2.727.2-3.903q-.253.268-.515.528c-4.455 4.41-12.41 5.696-17.268 1.068-3.459-3.295-3.251-9.787-3.213-14.312a373 373 0 0 0-.122-12.914c2.432-.196 4.08-.127 6.493.001-.009 4.944-2.375 23.796 4.111 24.536 14.692 1.677 8.521-17.403 10.294-24.336.53-.375 1.522-.344 2.211-.384"/><path fill="#fff" d="M216.934 43.42c6.131.18 14.267.069 20.408-.091.177 4.618-.303 13.634.165 17.593-5.849-.136-15.324-.362-20.889.04-.003-2.388-.345-16.364.316-17.543"/><path fill="#129ad7" d="M421.338 43.273c6.585.172 13.685-.156 20.152.178.473 4.07.248 12.791.237 17.26-.774.219-1.759.16-2.578.169-8.676.084-18.505 1.18-18.043-10.792.078-1.997-.33-4.82.232-6.815"/><path fill="#129ad7" d="m407.435 146.036 6.414.05c-.096 4.555.192 41.066-.385 42.556a182 182 0 0 0-6.099.105c-.156-3.556-.318-41.76.07-42.711"/><path fill="#fff" d="M0 37.47c5.314 5.586 6.785 7.105 14.737 7.637 3.218.215 16.1-.545 18.023.483.895 1.426.656 6.237.654 8.106l-.026 19.726c-.011 10.5-1.348 19.524 7.078 27.314a21.56 21.56 0 0 0 9.912 5.287c5.098 1.183 10.288.454 14.745-2.347A19.3 19.3 0 0 0 73.8 91.617c.92-4.133.866-25.833.063-30.153a21.7 21.7 0 0 0-3.134-7.94 21 21 0 0 0-13.398-9.396c-4.348-.95-9.98-.492-14.51-.495-5.003-.004-8.4-2.914-6.89-8.173C40.68 18.9 56.355 15.934 71.232 19.6a48.13 48.13 0 0 1 29.83 21.853c7.318 12.108 6.957 22.173 6.816 35.729-.069 6.663.301 11.558-1.35 18.209a47.93 47.93 0 0 1-21.823 29.555c-10.73 6.452-19.823 7.126-32.003 6.883-6.391-.128-10.244.152-16.695-1.466a48 48 0 0 1-29.466-21.914A47.6 47.6 0 0 1 .744 93.397c-.15-.748-.34-1.967-.744-2.58z"/><path fill="#129ad7" d="M513 104.305c-1.703 5.332-1.065 6.722-4.389 12.699a31.08 31.08 0 0 1-18.706 14.614c-8.44 2.39-18.897 1.495-26.592-2.807a31.43 31.43 0 0 1-15.105-19.348c-4.814-17.353 4.005-36.276 22.035-41.003 17.436-4.572 36.047 3.327 41.311 21.443.601 2.07.898 4.057 1.446 6.095zm-31.667 11.815c18.625-2.753 16.556-32.967-2.305-32.224l-.136.025c-18.982 3.005-17.304 32.792 2.441 32.199"/><path fill="#129ad7" d="M0 0h32.326c.69.96.868 1.792.996 2.935.766 6.866.231 15.977.215 23.02-.01 4.492.49 10.799-.2 15.113-.118.74-.2 1.44-.841 1.897-2.135 1.52-18.215.88-21.235.306-3.833-.728-6.59-2.068-8.82-5.36C1.41 36.393.896 34.75 0 33.237z"/></svg>
+      </div>
+      <div style="width:1px;height:40px;background:var(--border);"></div>
+      <img src="data:image/png;base64,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" alt="Gimba" style="height:40px;width:auto;border-radius:5px;display:block;">
+      <div class="live-badge"><span class="live-dot"></span><span style="font-size:10px;letter-spacing:2.5px;color:#ffffff;text-transform:uppercase;">Live Migration</span></div>
+    </div>
+    <h1 style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:2px 0;"><span style="font-weight:700;color:var(--accent);border:1px solid rgba(27,163,212,.45);background:rgba(27,163,212,.10);padding:5px 13px;border-radius:6px;font-size:17px;letter-spacing:.5px;white-space:nowrap;">GMUD-2026-0011</span><span style="font-weight:700;color:#ffffff;font-size:28px;line-height:1.12;">Migração de dados Cloud 2.0 para 3.0</span></h1>
+    <div class="tagline mono">19/06/2026 20:00 → 21/06/2026 18:00 · WINDOW</div>
+  </div>
+  <div class="right-col">
+    <div class="card-corner clock-wrap">
+      <div class="clock-lbl mono">HORÁRIO ATUAL</div>
+      <div class="clock-time mono" id="clock">--:--:--</div>
+      <div class="clock-date mono" id="date-display">---</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section section-pad" style="padding:12px 24px;">
+  <div class="section-title mono" style="margin-bottom:8px;">▸ JANELA GMUD — LINHA DO TEMPO</div>
+  <div class="tl-bar-wrap">
+    <div style="position:absolute;left:0%;top:1px;transform:translateX(0);font-size:9px;color:var(--accent);font-weight:700;white-space:nowrap;" class="mono">19/06 20:00 · INÍCIO</div>
+    <div style="position:absolute;left:100%;top:1px;transform:translateX(-100%);font-size:9px;color:var(--accent2);font-weight:700;white-space:nowrap;" class="mono">FIM · 21/06 18:00</div>
+    <div class="tl-bar">
+      <div class="tl-prog" id="timeline-prog"></div>
+      <div style="position:absolute;left:0%;top:0;bottom:0;width:2px;background:var(--accent);z-index:4;opacity:.8;"></div>
+      <div style="position:absolute;left:99%;top:0;bottom:0;width:2px;background:var(--accent2);z-index:4;opacity:.9;"></div>
+    </div>
+  </div>
+  <div class="tl-foot" style="align-items:center;margin-top:8px;">
+    <span class="mono" style="font-size:9px;color:var(--accent);font-weight:700;letter-spacing:1.5px;">⏱ DURAÇÃO DA JANELA · 46H (≈ 2 DIAS)</span>
+    <span class="mono" id="elapsed-label" style="font-size:11px;color:var(--warn);font-weight:700;letter-spacing:2px;">--</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card sc-blue" ><div class="stat-num mono" id="stat-total"  style="color:var(--accent);" >0</div><div class="stat-lbl">Atividades</div></div>
+  <div class="stat-card sc-green"><div class="stat-num mono" id="stat-done"   style="color:var(--accent2);">0</div><div class="stat-lbl">Concluídas</div></div>
+  <div class="stat-card sc-warn" ><div class="stat-num mono" id="stat-prog"   style="color:var(--warn);"   >0</div><div class="stat-lbl">Em Progresso</div></div>
+  <div class="stat-card sc-muted"><div class="stat-num mono" id="stat-pend"   style="color:var(--muted);"  >0</div><div class="stat-lbl">Pendentes</div></div>
+  <div class="stat-card sc-red"  ><div class="stat-num mono" id="stat-block"  style="color:var(--danger);" >0</div><div class="stat-lbl">Canceladas</div></div>
+</div>
+
+<!-- ACTIVITIES -->
+<div class="section">
+  <div class="act-header"><div class="act-grid">
+    <span>#</span><span>Atividade</span><span>Previsão</span><span>Início</span><span>Fim</span><span>Status</span><span>Conclusão %</span>
+  </div></div>
+  <div id="activity-list"></div>
+</div>
+
+<!-- BOTTOM -->
+<div class="grid-2">
+  <div class="panel-box">
+    <div class="section-title mono">▸ OBSERVAÇÕES / IMPEDIMENTOS</div>
+    <div class="obs-box" style="height:auto;max-height:420px;">
+      <div style="font-size:11px;color:var(--muted);line-height:1.7;">Sem observações ou impedimentos registrados.</div>
+    </div>
+    <div class="btn-row"><button class="btn btn-a mono" onclick="addCheckpoint()">+ Registrar Checkpoint</button></div>
+  </div>
+  <div class="panel-box">
+    <div class="section-title mono">▸ PRÓXIMAS AÇÕES</div>
+    <div style="background:rgba(43,212,180,.08);border:1px solid rgba(43,212,180,.25);padding:14px 16px;margin-top:10px;line-height:2;font-size:12px;border-radius:4px;min-height:80px;"></div>
+  </div>
+</div>
+
+<div class="panel-box" style="margin-bottom:20px;">
+  <div class="section-title mono">▸ LOG DE CHECKPOINTS</div>
+  <div id="checkpoint-list" style="margin-top:10px;">
+    <div class="mono" style="color:var(--muted);font-size:10px;">Nenhum checkpoint registrado ainda.</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="report-modal">
+  <div class="report-inner">
+    <button onclick="closeReport()" style="position:absolute;top:14px;right:18px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;">✕</button>
+    <div class="section-title mono" style="margin-bottom:16px;">STATUS REPORT — GIMBA CLOUD MIGRATION</div>
+    <pre id="report-content" class="mono" style="font-size:11px;color:var(--text);white-space:pre-wrap;line-height:1.9;"></pre>
+    <div class="btn-row" style="margin-top:20px;">
+      <button class="btn btn-a mono" onclick="copyReport()">Copiar Relatório</button>
+      <button class="btn" style="color:var(--accent2);border-color:var(--accent2);" onclick="closeReport()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-txt mono">RESPONSÁVEL: <span contenteditable="true" style="color:var(--accent2);cursor:text;">Wagner Felix</span></div>
+  <div class="footer-txt mono" id="last-update">ÚLTIMA ATUALIZAÇÃO: --</div>
+</div>
+
+<script>
+const SC = ['pending','progress','done','blocked'];
+const SL = {pending:'Pendente',progress:'Em Prog.',done:'Concluído',blocked:'Cancelado'};
+const SS = {pending:'s-pending',progress:'s-progress',done:'s-done',blocked:'s-blocked'};
+
+const DONE_VMS = new Set([]);
+const PROD_VMS    = new Set(['VM-FORTIGATE','bc-gma-ad-01','bc-gma-ad-02','BC-DMZ-AD-03','GBSRVNFS01','GIMBASQL','GBWEB01','GBWEB02','GBWEB05','GBWEB06','GBWEB07','GBWEB08','gbecommerce-01','gbecommerce-02','gbecommerce-03','gbredis-01','gbredis-02','gbredis-03','SolrMaster','SolrSlave-01','SolrSlave-02','GBSRVINDEX-01','GBWEBSQL04','BCGMAWEB05','GBWEBSQL01','GBWEBSQL02','GBARQUIVOS','GBIIS1','GBIIS6','GBJITTERBIT','ORACLEPRD1','ADABASLINUX_CLONE','ORACLEERP','GBBARRAMENTO','GBWEBSQLDW01','SRVBACKUP','GBAPIPORTAL','GBAPIGTP','GBAPIG','GBAPIBD','GBGOVMON','BCGBACESSO','BCGBSADIG','GBGLPI','GMA-EC-01','REPLICATOR','BC-DEVOPS','GBSFTP','nginx-oracle','GBAGENTES_IA','GBSRVTOTALL','GBSRVTOTALL3','gbsrvtotall2','BCGBOPERADOR','BC-GMB-KSEC','VEEAM-GIMBA','PRX-GIMBA','oracle-ksek','LINUX-MANOBRA-VEEAM','Veeam']);
+const NAOPROD_VMS = new Set(['ORADESENV','ORACLEPRD4','DR_ADABASLINUX_CLONE','GBWEBSQL11','GBWEBSQL12','DR-ORACLEERP','adabasdev','BCGMAWEB07','GBDEVJITTERBIT','BCGBDEVIIS01','BCGBDEVSQL01','GBHMLJITTERBIT','GBHMLIIS01','GBHMLSQL01','BCGBDEVIIS03','SolrDev','GBDEVSQL03','GBNGINX-01-DEV-HML','GBNGINX-02-DEV-HML','BCGBHMLIIS03','GBHMLSQL03','BCGBAPREIIS03','BCGBHMLIIS03-N','GBDEVSQL02','BCGBDEVIIS02','BCGBHMLIIS02','GBHMLSQL02','ORACLEPRD03','BCGBAPREIIS02','GBDEVSQLDW01','GBAPREIIS1','GBAPRESQL1','GBDEVIIS03-PERF','GBSQUADVIRTUAL','TESTE-SISTEMAS','GIMBASQLOLD']);
+
+const mkVM = n => ({name:n, done:DONE_VMS.has(n)});
+
+const PHASES = [
+  {seq:0,  vms:['VM-FORTIGATE']},
+  {seq:1,  vms:['bc-gma-ad-01','bc-gma-ad-02','BC-DMZ-AD-03']},
+  {seq:2,  vms:['GBSRVNFS01']},
+  {seq:3,  vms:['GIMBASQL','GBWEB01','GBWEB02','GBWEB05','GBWEB06','GBWEB07','GBWEB08','gbecommerce-01','gbecommerce-02','gbecommerce-03','gbredis-01','gbredis-02','gbredis-03','SolrMaster','SolrSlave-01','SolrSlave-02','GBSRVINDEX-01']},
+  {seq:4,  vms:['GBWEBSQL04','BCGMAWEB05','GBWEBSQL01']},
+  {seq:5,  vms:['GBWEBSQL02','GBARQUIVOS','GBIIS1','GBIIS6','GBJITTERBIT']},
+  {seq:6,  vms:['ORACLEPRD1','ADABASLINUX_CLONE','ORACLEERP','GBBARRAMENTO']},
+  {seq:7,  vms:['GBWEBSQLDW01','SRVBACKUP']},
+  {seq:8,  vms:['GBAPIPORTAL','GBAPIGTP','GBAPIG','GBAPIBD','GBGOVMON']},
+  {seq:9,  vms:['BCGBACESSO','BCGBSADIG','GBGLPI']},
+  {seq:10, vms:['GMA-EC-01']},
+  {seq:11, vms:['REPLICATOR','BC-DEVOPS']},
+  {seq:12, vms:['GBSFTP']},
+  {seq:13, vms:['ORACLEPRD4','DR_ADABASLINUX_CLONE']},
+  {seq:14, vms:['GBWEBSQL11','GBWEBSQL12']},
+  {seq:15, vms:['DR-ORACLEERP']},
+  {seq:16, vms:['nginx-oracle','adabasdev']},
+  {seq:17, vms:['GBAGENTES_IA']},
+  {seq:18, vms:['GBSRVTOTALL','GBSRVTOTALL3','gbsrvtotall2']},
+  {seq:19, vms:['BCGMAWEB07']},
+  {seq:20, vms:['BCGBOPERADOR']},
+  {seq:21, vms:[]},
+  {seq:22, vms:['GBDEVJITTERBIT','BCGBDEVIIS01','BCGBDEVSQL01']},
+  {seq:23, vms:['GBHMLJITTERBIT','GBHMLIIS01','GBHMLSQL01']},
+  {seq:24, vms:['BCGBDEVIIS03','SolrDev','GBDEVSQL03']},
+  {seq:25, vms:['GBNGINX-01-DEV-HML','GBNGINX-02-DEV-HML','BCGBHMLIIS03','GBHMLSQL03']},
+  {seq:26, vms:['BCGBAPREIIS03','GBAPRESQL3']},
+  {seq:27, vms:['BCGBHMLIIS03-N']},
+  {seq:28, vms:['GBDEVSQL02','BCGBDEVIIS02']},
+  {seq:29, vms:['BCGBHMLIIS02','GBHMLSQL02']},
+  {seq:30, vms:['ORACLEPRD03']},
+  {seq:31, vms:['BCGBAPREIIS02','GBAPRESQL2']},
+  {seq:32, vms:['GBDEVSQLDW01']},
+  {seq:33, vms:['GBAPREIIS1','GBAPRESQL1']},
+  {seq:34, vms:['GBDEVIIS03-PERF']},
+  {seq:35, vms:['GBSQUADVIRTUAL']},
+  {seq:36, vms:['TESTE-SISTEMAS']},
+].map(p => ({...p, vmList: p.vms.map(mkVM)}));
+
+const BC_TABLE = [{"s": 0, "v": "VM-FORTIGATE", "a": "Produção", "st": "pendente"}, {"s": 1, "v": "bc-gma-ad-01", "a": "Produção", "st": "pendente"}, {"s": 1, "v": "bc-gma-ad-02", "a": "Produção", "st": "pendente"}, {"s": 1, "v": "BC-DMZ-AD-03", "a": "Produção", "st": "pendente"}, {"s": 2, "v": "GBSRVNFS01", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GIMBASQL", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB01", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB02", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB05", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB06", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB07", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBWEB08", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbecommerce-01", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbecommerce-02", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbecommerce-03", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbredis-01", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbredis-02", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "gbredis-03", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "SolrMaster", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "SolrSlave-01", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "SolrSlave-02", "a": "Produção", "st": "pendente"}, {"s": 3, "v": "GBSRVINDEX-01", "a": "Produção", "st": "pendente"}, {"s": 4, "v": "GBWEBSQL04", "a": "Produção", "st": "pendente"}, {"s": 4, "v": "BCGMAWEB05", "a": "Produção", "st": "pendente"}, {"s": 4, "v": "GBWEBSQL01", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBWEBSQL02", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBARQUIVOS", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBIIS1", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBIIS6", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBJITTERBIT", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "ORADESENV", "a": "Não-Prod", "st": "pendente"}, {"s": 6, "v": "ORACLEPRD1", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "ADABASLINUX_CLONE", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "ORACLEERP", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "GBBARRAMENTO", "a": "Produção", "st": "pendente"}, {"s": 7, "v": "GBWEBSQLDW01", "a": "Produção", "st": "pendente"}, {"s": 7, "v": "SRVBACKUP", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIPORTAL", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIGTP", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIG", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIBD", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBGOVMON", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "BCGBACESSO", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "BCGBSADIG", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "GBGLPI", "a": "Produção", "st": "pendente"}, {"s": 10, "v": "GMA-EC-01", "a": "Produção", "st": "pendente"}, {"s": 11, "v": "REPLICATOR", "a": "Produção", "st": "pendente"}, {"s": 11, "v": "BC-DEVOPS", "a": "Produção", "st": "pendente"}, {"s": 12, "v": "GBSFTP", "a": "Produção", "st": "pendente"}, {"s": 13, "v": "ORACLEPRD4", "a": "Não-Prod", "st": "pendente"}, {"s": 13, "v": "DR_ADABASLINUX_CLONE", "a": "Não-Prod", "st": "pendente"}, {"s": 14, "v": "GBWEBSQL11", "a": "Não-Prod", "st": "pendente"}, {"s": 14, "v": "GBWEBSQL12", "a": "Não-Prod", "st": "pendente"}, {"s": 15, "v": "DR-ORACLEERP", "a": "Não-Prod", "st": "pendente"}, {"s": 16, "v": "nginx-oracle", "a": "Produção", "st": "pendente"}, {"s": 16, "v": "adabasdev", "a": "Não-Prod", "st": "pendente"}, {"s": 17, "v": "GBAGENTES_IA", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL3", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "gbsrvtotall2", "a": "Produção", "st": "pendente"}, {"s": 19, "v": "BCGMAWEB07", "a": "Não-Prod", "st": "pendente"}, {"s": 20, "v": "BCGBOPERADOR", "a": "Produção", "st": "pendente"}, {"s": 22, "v": "GBDEVJITTERBIT", "a": "Não-Prod", "st": "pendente"}, {"s": 22, "v": "BCGBDEVIIS01", "a": "Não-Prod", "st": "pendente"}, {"s": 22, "v": "BCGBDEVSQL01", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLJITTERBIT", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLIIS01", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLSQL01", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "BCGBDEVIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "SolrDev", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "GBDEVSQL03", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBNGINX-01-DEV-HML", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBNGINX-02-DEV-HML", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "BCGBHMLIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBHMLSQL03", "a": "Não-Prod", "st": "pendente"}, {"s": 26, "v": "BCGBAPREIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 26, "v": "GBAPRESQL3", "a": "Não-Prod", "st": "pendente"}, {"s": 27, "v": "BCGBHMLIIS03-N", "a": "Não-Prod", "st": "pendente"}, {"s": 28, "v": "GBDEVSQL02", "a": "Não-Prod", "st": "pendente"}, {"s": 28, "v": "BCGBDEVIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 29, "v": "BCGBHMLIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 29, "v": "GBHMLSQL02", "a": "Não-Prod", "st": "pendente"}, {"s": 30, "v": "ORACLEPRD03", "a": "Não-Prod", "st": "pendente"}, {"s": 31, "v": "BCGBAPREIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 31, "v": "GBAPRESQL2", "a": "Não-Prod", "st": "pendente"}, {"s": 32, "v": "GBDEVSQLDW01", "a": "Não-Prod", "st": "pendente"}, {"s": 33, "v": "GBAPREIIS1", "a": "Não-Prod", "st": "pendente"}, {"s": 33, "v": "GBAPRESQL1", "a": "Não-Prod", "st": "pendente"}, {"s": 34, "v": "GBDEVIIS03-PERF", "a": "Não-Prod", "st": "pendente"}, {"s": 35, "v": "GBSQUADVIRTUAL", "a": "Não-Prod", "st": "pendente"}, {"s": 36, "v": "TESTE-SISTEMAS", "a": "Não-Prod", "st": "pendente"}, {"s": "", "v": "BC-GMB-KSEC", "a": "Produção", "st": "pendente"}, {"s": "", "v": "oracle-ksek", "a": "Produção", "st": "pendente"}, {"s": "", "v": "LINUX-MANOBRA-VEEAM", "a": "Produção", "st": "pendente"}];
+
+const ACTS = [
+  {id:1, name:'Bck´s internos Gimba',                               desc:'', start:'', end:''},
+  {id:2, name:'Bloquear tráfego de entrada de dados na Cloud 2.0',  desc:'', start:'', end:''},
+  {id:3, name:'Reunião e validações com Operadora para troca de L2L', desc:'', start:'', end:''},
+  {id:4, name:'Configurações entre FW Cloud e FW',                  desc:'', start:'', end:''},
+  {id:5, name:'BC Migration',                                       desc:'99 VMs por sequência · fonte: Validação Binário (19-06)', start:'', end:'', vmTable:BC_TABLE},
+  {id:6, name:'Validação - CSE',                                    desc:'', start:'', end:''},
+  {id:7, name:'Validação - Gimba - Marcio',                         desc:'', start:'', end:''},
+  {id:8, name:'Validação Gimba - Sistemas/Serviços',                desc:'', start:'', end:''},
+];
+
+const phasePct = p => p.vmList.length ? Math.round(p.vmList.filter(v=>v.done).length/p.vmList.length*100) : 0;
+const phaseSt  = pct => pct===100?'done':pct>0?'progress':'pending';
+const calcPct  = phases => { let t=0,d=0; phases.forEach(p=>{t+=p.vmList.length;d+=p.vmList.filter(v=>v.done).length;}); return t?Math.round(d/t*100):0; };
+const padZ = n => String(n).padStart(2,'0');
+const DAYS   = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+// Estado inicial com horários reais e status definidos
+const INIT = [
+  {pct:100, status:'done', startReal:'20:00', endReal:'23:37'},
+  {pct:50, status:'progress', startReal:'23:38', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
+];
+let state = ACTS.map((a,i) => ({
+  ...a,
+  pct:       INIT[i].pct,
+  status:    INIT[i].status,
+  startReal: INIT[i].startReal,
+  endReal:   INIT[i].endReal,
+}));
+
+let checkpoints = [];
+
+function render() {
+  const list = document.getElementById('activity-list');
+  list.innerHTML = '';
+  state.forEach((act, i) => {
+    const hp = !!act.phases;
+    const ht = !!act.vmTable;
+    const eid = 'ph-' + i;
+    if (hp) {
+      act.pct    = calcPct(act.phases);
+      act.status = act.pct===100 ? 'done' : act.pct>0 ? 'progress' : 'pending';
+    }
+    const cancelled = act.status === 'blocked';
+    const row = document.createElement('div');
+    row.className = 'act-body-row';
+    if (cancelled) row.style.opacity = '.45';
+    row.innerHTML = `<div class="act-grid">
+      <div style="display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);" class="mono">${padZ(i+1)}</div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;padding:0 4px;">
+        <div>${(hp||ht)?`<span id="arrow-${eid}" onclick="togglePh('${eid}')" style="cursor:pointer;color:var(--accent);margin-right:6px;">▼</span>`:''}<span style="font-size:13px;color:var(--text);font-weight:600;">${act.name}</span><div style="font-size:10px;color:var(--muted);margin-top:2px;font-weight:700;">${act.desc}</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;"><div class="act-time-cell mono" style="color:var(--muted);font-weight:700;">${act.start}<br>${act.end}</div></div>
+      <div style="display:flex;align-items:center;justify-content:center;"><input class="rt-input mono" style="color:var(--accent);font-weight:700;" type="text" placeholder="--:--" value="${act.startReal}" onchange="setReal(${i},'startReal',this.value)"></div>
+      <div style="display:flex;align-items:center;justify-content:center;"><input class="rt-input mono" style="color:var(--accent);font-weight:700;" type="text" placeholder="--:--" value="${act.endReal}" onchange="setReal(${i},'endReal',this.value)"></div>
+      <div style="display:flex;align-items:center;justify-content:center;"><div class="pill ${SS[act.status]}" style="font-weight:700;"${hp?'':` onclick="cycleSt(${i})\"`}>${SL[act.status]}</div></div>
+      <div style="display:flex;align-items:center;justify-content:center;padding:0 4px;"><div class="pct-row">
+        <input class="pct-inp mono" style="color:var(--accent);font-weight:700;" type="number" min="0" max="100" value="${act.pct}"${hp?' readonly style="opacity:.5"':''} onchange="setPct(${i},this.value)" oninput="setPct(${i},this.value)">
+        <span class="pct-lbl" style="color:var(--muted);font-weight:700;">%</span>
+        <div class="mini-bar"><div class="mini-fill" id="mf-${i}" style="width:${act.pct}%"></div></div>
+      </div></div>
+    </div>`;
+    list.appendChild(row);
+
+    if (hp) {
+      const panel = document.createElement('div');
+      panel.id = eid;
+      panel.className = 'phase-panel';
+      const tot  = act.phases.reduce((s,p) => s+p.vmList.length, 0);
+      const done = act.phases.filter(p => phasePct(p)===100).length;
+      let h = `<div class="section-title mono">${act.phases.length} FASES · ${tot} VMs · ${done} CONCLUÍDAS</div><div class="phase-grid">`;
+      act.phases.forEach((p, pi) => {
+        const pct = phasePct(p), st = phaseSt(pct);
+        h += `<div class="phase-card">
+          <div class="phase-head">
+            <span class="mono" style="font-size:9px;color:var(--text);font-weight:700;min-width:26px;">F${padZ(p.seq)}</span>
+            <span class="mono" style="font-size:8px;color:var(--muted);">${p.vmList.length} VM${p.vmList.length!==1?'s':''}</span>
+            <div style="flex:1;"></div>
+            <div class="pill ${SS[st]}" style="font-size:7px;padding:3px 8px;">${SL[st]}</div>
+          </div>`;
+        if (pct>0 && pct<100) h += `<div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="height:2px;flex:1;background:var(--pending);overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent2),var(--accent));"></div></div><span class="mono" style="font-size:8px;color:var(--muted);font-weight:600;">${pct}%</span></div>`;
+        if (p.vmList.length) {
+          h += `<div class="vm-list" style="background:rgba(0,0,0,.4);padding:8px 6px;border-radius:3px;margin-top:6px;">`;
+          p.vmList.forEach((v, vi) => {
+            const isPrd = PROD_VMS.has(v.name), isNpd = NAOPROD_VMS.has(v.name);
+            h += `<div class="vm-row" onclick="toggleVM(${i},${pi},${vi})">
+              <div class="vm-check" style="border-color:#ffffff;background:${v.done?'rgba(43,212,180,.3)':'transparent'};">${v.done?'<span style="color:#ffffff;font-size:9px;">✓</span>':''}</div>
+              ${isPrd ?`<span class="vm-badge mono" style="color:var(--accent2);border-color:var(--accent2);font-weight:700;">PRD</span>`:''}\n              ${isNpd?`<span class="vm-badge mono" style="color:var(--accent2);border-color:var(--accent2);font-weight:700;">N-PRD</span>`:''}\n              <span class="vm-name mono" style="color:var(--text);font-weight:700;">${v.name}</span>
+            </div>`;
+          });
+          h += `</div>`;
+        }
+        h += `</div>`;
+      });
+      h += `</div>`;
+      panel.innerHTML = h;
+      list.appendChild(panel);
+    }
+
+    if (ht) {
+      const panel = document.createElement('div');
+      panel.id = eid;
+      panel.className = 'phase-panel';
+      const T = act.vmTable;
+      if (!T.length) {
+        panel.innerHTML = `<div class="section-title mono" style="margin-bottom:6px;">LISTA DE VMs</div><div style="font-size:11px;color:var(--muted);">Nenhuma VM carregada.</div>`;
+        list.appendChild(panel);
+        return;
+      }
+      const stColor = z => z==='concluida'?'var(--accent2)':(z==='andamento'?'var(--warn)':(z==='naomigrar'?'var(--danger)':'#5b7488'));
+      const stTint  = z => z==='concluida'?'rgba(43,212,180,.10)':(z==='andamento'?'rgba(245,166,35,.10)':(z==='naomigrar'?'rgba(255,90,110,.10)':'rgba(255,255,255,.03)'));
+      const stLabel = z => z==='concluida'?'Concluída':(z==='andamento'?'Em andamento':(z==='naomigrar'?'Não migrar':'Não iniciada'));
+      const cnt = z => T.filter(x=>x.st===z).length;
+      const nC=cnt('concluida'), nA=cnt('andamento'), nP=cnt('pendente'), nNM=cnt('naomigrar');
+      const nProd=T.filter(x=>x.a==='Produção').length, nNprod=T.filter(x=>x.a==='Não-Prod').length;
+      const groups = {};
+      T.forEach(x=>{ const k = x.st==='naomigrar' ? 'NM' : ((x.s===''||x.s===null)?'∅':String(x.s)); (groups[k]=groups[k]||[]).push(x); });
+      const keys = Object.keys(groups).sort((a,b)=>{ const rk=z=>z==='NM'?2:(z==='∅'?1:0); const ra=rk(a),rb=rk(b); return ra!==rb?ra-rb:Number(a)-Number(b); });
+      const leg = (c,t)=>`<span style="display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${c};"></span>${t}</span>`;
+      let h = `<div class="section-title mono" style="margin-bottom:6px;">${T.length} VMs · ${keys.filter(k=>k!=='NM').length} SEQUÊNCIAS · ${nProd} PRODUTIVAS · ${nNprod} NÃO PRODUTIVAS</div>`;
+      h += `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">`+
+           `<span class="mono" style="font-size:9px;color:var(--accent2);font-weight:700;background:rgba(43,212,180,.10);border:1px solid var(--accent2);border-radius:4px;padding:3px 9px;">✓ ${nC} conclúídas</span>`+
+           `<span class="mono" style="font-size:9px;color:var(--warn);font-weight:700;background:rgba(245,166,35,.10);border:1px solid var(--warn);border-radius:4px;padding:3px 9px;">◐ ${nA} em andamento</span>`+
+           `<span class="mono" style="font-size:9px;color:#8aa0b2;font-weight:700;background:rgba(255,255,255,.03);border:1px solid #5b7488;border-radius:4px;padding:3px 9px;">○ ${nP} não iniciadas</span>`+
+           (nNM?`<span class="mono" style="font-size:9px;color:var(--danger);font-weight:700;background:rgba(255,90,110,.10);border:1px solid var(--danger);border-radius:4px;padding:3px 9px;">✕ ${nNM} não migrar</span>`:'')+
+           `</div>`;
+      h += `<div class="phase-grid" style="grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:10px;max-height:460px;overflow-y:auto;padding-right:4px;">`;
+      keys.forEach(k=>{
+        const g = groups[k];
+        const gC = g.filter(x=>x.st==='concluida').length;
+        const gA = g.filter(x=>x.st==='andamento').length;
+        const isNM = k==='NM';
+        const label = isNM?'NÃO MIGRAR AGORA':(k==='∅'?'SEM SEQUÊNCIA':'SEQUÊNCIA '+String(k).padStart(2,'0'));
+        const pc = Math.round(gC/g.length*100), pa = Math.round(gA/g.length*100);
+        h += `<div class="phase-card" style="padding:12px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span class="mono" style="font-size:11px;color:${isNM?'var(--danger)':'var(--accent)'};font-weight:700;">${label}</span>
+            <div style="flex:1;"></div>
+            <span class="mono" style="font-size:9px;color:var(--muted);">${g.length} VM${g.length!==1?'s':''}</span>
+          </div>`;
+        if(!isNM){
+          h += `<div style="display:flex;height:5px;border-radius:3px;overflow:hidden;background:var(--pending);margin-bottom:8px;">
+            <div style="width:${pc}%;background:var(--accent2);"></div><div style="width:${pa}%;background:var(--warn);"></div></div>
+            <div class="mono" style="font-size:8px;color:var(--muted);margin-bottom:8px;">${gC}/${g.length} concluídas · ${gA} em andamento</div>`;
+        }
+        g.forEach(x=>{
+          const tt = (x.a||'')+(x.a?' · ':'')+stLabel(x.st);
+          const strike = x.st==='naomigrar'?'text-decoration:line-through;opacity:.7;':'';
+          const pbadge = x.a==='Produção'?`<span class="mono" style="font-size:7px;font-weight:700;color:var(--accent2);border:1px solid var(--accent2);border-radius:3px;padding:1px 4px;flex-shrink:0;">PRD</span>`:(x.a==='Não-Prod'?`<span class="mono" style="font-size:7px;font-weight:700;color:#8aa0b2;border:1px solid #5b7488;border-radius:3px;padding:1px 4px;flex-shrink:0;">N-PRD</span>`:'');
+          h += `<div title="${x.v} — ${tt}" style="display:flex;align-items:center;gap:8px;padding:6px 9px;margin-bottom:4px;border-left:3px solid ${stColor(x.st)};background:${stTint(x.st)};border-radius:3px;">
+            ${pbadge}
+            <span class="mono" style="font-size:11px;color:var(--text);font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${strike}">${x.v}</span>
+            <span class="mono" style="font-size:8px;color:${stColor(x.st)};font-weight:700;white-space:nowrap;letter-spacing:.3px;">${stLabel(x.st)}</span>
+          </div>`;
+        });
+        h += `</div>`;
+      });
+      h += `</div>`;
+      panel.innerHTML = h;
+      list.appendChild(panel);
+    }
+  });
+  updateStats();
+}
+
+function togglePh(id) {
+  const p=document.getElementById(id), a=document.getElementById('arrow-'+id);
+  if (!p) return;
+  const o = p.style.display==='none';
+  p.style.display = o?'block':'none';
+  if (a) a.textContent = o?'▼':'▶';
+}
+function toggleVM(ai, pi, vi) {
+  state[ai].phases[pi].vmList[vi].done = !state[ai].phases[pi].vmList[vi].done;
+  state[ai].pct    = calcPct(state[ai].phases);
+  state[ai].status = state[ai].pct===100?'done':'progress';
+  render();
+  document.getElementById('ph-'+ai).style.display = 'block';
+  updateLast();
+}
+function setPct(i, val) {
+  if (state[i].phases) return;
+  const v = Math.min(100, Math.max(0, parseInt(val)||0));
+  state[i].pct = v;
+  const m = document.getElementById('mf-'+i); if (m) m.style.width = v+'%';
+  state[i].status = v===100?'done':v>0&&state[i].status==='pending'?'progress':state[i].status;
+  updateStats(); updateLast();
+}
+function setReal(i,f,v) { state[i][f]=v; }
+function cycleSt(i) {
+  if (state[i].phases) return;
+  state[i].status = SC[(SC.indexOf(state[i].status)+1)%SC.length];
+  render();
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = state.length;
+  document.getElementById('stat-done').textContent  = state.filter(a=>a.status==='done').length;
+  document.getElementById('stat-prog').textContent  = state.filter(a=>a.status==='progress').length;
+  document.getElementById('stat-block').textContent = state.filter(a=>a.status==='blocked').length;
+  document.getElementById('stat-pend').textContent  = state.filter(a=>a.status==='pending').length;
+  const a5 = state.find(a=>a.phases);
+  if (a5) {
+    const all = a5.phases.flatMap(p=>p.vmList);
+    const pV  = all.filter(v=>PROD_VMS.has(v.name));
+    const nV  = all.filter(v=>NAOPROD_VMS.has(v.name));
+    const pp  = pV.length ? Math.round(pV.filter(v=>v.done).length/pV.length*100) : 0;
+    const np  = nV.length ? Math.round(nV.filter(v=>v.done).length/nV.length*100) : 0;
+    document.getElementById('stat-prod-pct').textContent   = pp+'%';
+    document.getElementById('stat-prod-bar').style.width   = pp+'%';
+    document.getElementById('stat-naoprod-pct').textContent = np+'%';
+    document.getElementById('stat-naoprod-bar').style.width = np+'%';
+  }
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent       = padZ(now.getHours())+':'+padZ(now.getMinutes())+':'+padZ(now.getSeconds());
+  document.getElementById('date-display').textContent = DAYS[now.getDay()]+' · '+padZ(now.getDate())+' '+MONTHS[now.getMonth()]+' '+now.getFullYear();
+  const S=new Date('2026-06-19T20:00:00'), E=new Date('2026-06-21T18:00:00');
+  const ref = now < E ? now : E;
+  const pct = (Math.min(100,Math.max(0,((ref-S)/(E-S))*100))).toFixed(2);
+  const prog = document.getElementById('timeline-prog');
+  prog.style.width = pct+'%';
+  if (now >= E) {
+    prog.style.borderRight = '3px solid #ff4757';
+    prog.style.background  = 'linear-gradient(90deg,rgba(43,212,180,.3),rgba(43,212,180,.6))';
+    document.getElementById('elapsed-label').textContent = '✔ JANELA ENCERRADA';
+  } else if (now < S) {
+    prog.style.borderRight = '3px solid var(--accent2)';
+    document.getElementById('elapsed-label').textContent = 'Aguardando início...';
+  } else {
+    prog.style.borderRight = '3px solid var(--accent2)';
+    const el = now - S;
+    document.getElementById('elapsed-label').textContent = 'Decorrido: '+Math.floor(el/3600000)+'h '+padZ(Math.floor((el%3600000)/60000))+'m';
+  }
+}
+setInterval(updateClock, 1000); updateClock();
+
+function addCheckpoint() {
+  const now = new Date();
+  const t   = padZ(now.getDate())+'/'+padZ(now.getMonth()+1)+' '+padZ(now.getHours())+':'+padZ(now.getMinutes());
+  const a5  = state.find(a=>a.phases);
+  checkpoints.unshift({time:t, pct:a5?a5.pct:0, note:'Checkpoint registrado'});
+  renderCp(); updateLast();
+}
+function renderCp() {
+  const l = document.getElementById('checkpoint-list');
+  l.innerHTML = checkpoints.length
+    ? checkpoints.map(c=>`<div class="cp-item"><div class="mono" style="font-size:9px;color:var(--accent);">⬡ ${c.time}</div><div style="font-size:11px;color:var(--text);">${c.note}</div><div class="mono" style="font-size:10px;color:var(--accent2);">${c.pct}%</div></div>`).join('')
+    : '<div class="mono" style="color:var(--muted);font-size:10px;">Nenhum checkpoint registrado ainda.</div>';
+}
+function generateReport() {
+  const now = new Date();
+  const t   = padZ(now.getDate())+'/'+padZ(now.getMonth()+1)+'/'+now.getFullYear()+' '+padZ(now.getHours())+':'+padZ(now.getMinutes());
+  const a5  = state.find(a=>a.phases);
+  const lines = state.map(a=>{const b='['+'█'.repeat(Math.round(a.pct/10))+'░'.repeat(10-Math.round(a.pct/10))+']';return'  '+String(a.id).padStart(2,'0')+'. '+a.name.padEnd(35)+' '+b+' '+String(a.pct).padStart(3)+'%  ['+SL[a.status]+']';}).join('\n');
+  document.getElementById('report-content').textContent =
+    '══════════════════════════════════════════════════════\n'+
+    '  STATUS REPORT · MIGRAÇÃO DE CLOUD — GIMBA\n'+
+    '══════════════════════════════════════════════════════\n'+
+    '  Data/Hora : '+t+'\n'+
+    '  Deployment: '+(a5?a5.pct:0)+'%\n'+
+    '──────────────────────────────────────────────────────\n'+
+    '  ATIVIDADES\n'+lines+'\n'+
+    '══════════════════════════════════════════════════════';
+  document.getElementById('report-modal').style.display = 'flex';
+}
+function closeReport() { document.getElementById('report-modal').style.display='none'; }
+function copyReport()  { navigator.clipboard.writeText(document.getElementById('report-content').textContent).then(()=>{const b=event.target;b.textContent='Copiado ✓';setTimeout(()=>b.textContent='Copiar Relatório',2000);}); }
+function updateLast()  { const n=new Date(); document.getElementById('last-update').textContent='ÚLTIMA ATUALIZAÇÃO: '+padZ(n.getDate())+'/'+padZ(n.getMonth()+1)+' '+padZ(n.getHours())+':'+padZ(n.getMinutes()); }
+
+render();
+renderCp();
+</script>
+</body>
+</html>
