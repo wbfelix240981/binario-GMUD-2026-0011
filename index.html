@@ -12,7 +12,7 @@
     --danger:#ff5a6e;--text:#e8f1f6;--muted:#8099ab;--pending:#15303f;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:radial-gradient(1100px 480px at 50% -8%,rgba(27,163,212,.10),transparent 60%),linear-gradient(165deg,#0c2334 0%,#0a1c29 45%,#07151d 100%) fixed;background-color:#081820;color:var(--text);font-family:'Segoe UI',Arial,sans-serif;font-weight:300;min-height:100vh;padding:32px;max-width:1480px;margin:0 auto;-webkit-text-size-adjust:100%;}
+  body{background:radial-gradient(1100px 480px at 50% -8%,rgba(27,163,212,.10),transparent 60%),linear-gradient(165deg,#0c2334 0%,#0a1c29 45%,#07151d 100%) fixed;background-color:#081820;color:var(--text);font-family:'Segoe UI',Arial,sans-serif;font-weight:300;min-height:100vh;padding:clamp(12px,3.2vw,32px);max-width:1480px;margin:0 auto;-webkit-text-size-adjust:100%;overflow-x:hidden;}
   .mono{font-family:ui-monospace,'Cascadia Code','JetBrains Mono',Consolas,'Courier New',monospace;font-feature-settings:'tnum' 1;}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
 
@@ -21,24 +21,26 @@
   .live-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(27,163,212,.35);border-radius:3px;}
   .live-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 1.4s infinite;flex-shrink:0;}
   h1{font-size:27px;font-weight:700;color:#ffffff;line-height:1.15;}
+  h1 > span:last-child{font-size:clamp(18px,4.4vw,28px) !important;}
+  h1 > span:first-child{font-size:clamp(11px,2.5vw,17px) !important;}
   .tagline{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:10px;}
   .right-col{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
   .card-corner{position:relative;border:1px solid var(--border);background:var(--panel);text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.25);}
   .card-corner::before{content:'';position:absolute;top:-1px;left:-1px;width:10px;height:10px;border-top:2px solid var(--accent);border-left:2px solid var(--accent);}
   .card-corner::after{content:'';position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);}
-  .clock-wrap{padding:16px 32px;}
+  .clock-wrap{padding:16px clamp(18px,4vw,32px);}
   .clock-lbl{font-size:8px;letter-spacing:3px;color:var(--muted);margin-bottom:5px;font-weight:700;}
-  .clock-time{font-size:32px;color:var(--text);letter-spacing:5px;font-weight:700;}
+  .clock-time{font-size:clamp(22px,6vw,32px);color:var(--text);letter-spacing:clamp(2px,1.4vw,5px);font-weight:700;}
   .clock-date{font-size:10px;color:var(--muted);margin-top:3px;}
   .type-row{display:flex;gap:8px;}
   .type-card{border:1px solid var(--border);background:var(--panel);padding:14px 22px;text-align:center;min-width:108px;box-shadow:0 6px 20px rgba(0,0,0,.25);}
   .type-lbl{font-size:8px;letter-spacing:2.5px;color:var(--muted);margin-bottom:6px;font-weight:700;}
-  .type-val{font-size:26px;font-weight:700;letter-spacing:2px;color:var(--text);}
+  .type-val{font-size:clamp(19px,4.5vw,26px);font-weight:700;letter-spacing:2px;color:var(--text);}
   .bar-track{height:2px;background:var(--pending);margin-top:8px;overflow:hidden;border-radius:1px;}
   .bar-fill{height:100%;transition:width .5s ease;}
 
   .section{border:1px solid var(--border);background:var(--panel);margin-bottom:22px;border-radius:8px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.25);}
-  .section-pad{padding:18px 24px;}
+  .section-pad{padding:clamp(14px,3vw,20px) clamp(14px,3.4vw,24px);}
   .section-title{font-size:8px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:14px;font-weight:700;}
 
   .tl-bar-wrap{position:relative;height:34px;}
@@ -47,7 +49,7 @@
   .tl-foot{display:flex;justify-content:space-between;margin-top:5px;}
   .tl-foot span{font-size:8px;color:var(--muted);font-weight:700;}
 
-  .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px;}
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px;}
   .stat-card{border-left:4px solid;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(--panel);padding:18px 16px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.25);border-radius:6px;transition:transform .2s ease,box-shadow .2s ease;}
   .stat-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.38);}
   .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0px;}
@@ -56,7 +58,7 @@
   .sc-warn{border-left-color:var(--warn);}
   .sc-muted{border-left-color:var(--muted);}
   .sc-red{border-left-color:var(--danger);}
-  .stat-num{font-size:34px;font-weight:700;margin-bottom:4px;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:.5px;}
+  .stat-num{font-size:clamp(24px,5.2vw,34px);font-weight:700;margin-bottom:4px;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:.5px;}
   .stat-lbl{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
 
   .act-grid{display:grid;grid-template-columns:44px 1fr 120px 80px 80px 110px 130px;gap:0;}
@@ -127,57 +129,48 @@
 
   /* ===== TABLET ===== */
   @media (max-width:1100px){
-    body{padding:24px;}
-    .stats-row{gap:9px;}
-    .stat-num{font-size:30px;}
-    .phase-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));}
-    .phase-panel{padding:14px 22px 18px;}
+    .phase-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+    .phase-panel{padding:14px clamp(16px,3vw,24px) 18px;}
   }
 
-  /* ===== RESPONSIVO / CELULAR ===== */
+  /* ===== RESPONSIVO / CELULAR (fluido) ===== */
   @media (max-width: 820px){
-    body{padding:14px;}
-    .header{grid-template-columns:1fr;gap:16px;margin-bottom:22px;}
-    .header > div:last-child{justify-self:stretch;}
-    h1{font-size:22px !important;gap:10px !important;}
-    h1 > span:last-child{font-size:20px !important;}
-    .tagline{font-size:9px;}
-    .clock-wrap{padding:14px 18px;}
-    .clock-time{font-size:26px;letter-spacing:3px;}
-    .type-card{min-width:90px;padding:12px 16px;}
-    .type-val{font-size:22px;}
-    .stats-row{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px;}
-    .stat-card{padding:14px;}
-    .stat-num{font-size:26px;}
+    .header{grid-template-columns:1fr;gap:18px;margin-bottom:22px;}
+    .brand-row{flex-wrap:wrap;gap:12px;}
+    .right-col{align-items:stretch;width:100%;}
+    .type-row{display:flex;gap:10px;}
+    .type-card{flex:1;min-width:0;padding:12px 10px;}
     .grid-2{grid-template-columns:1fr;gap:14px;}
-    .obs-box{height:auto;min-height:96px;}
+    .obs-box{height:auto;min-height:90px;}
     .cp-item{grid-template-columns:1fr;gap:5px;text-align:left;padding:11px 14px;}
     .phase-panel{padding:12px 14px 16px;}
     .phase-grid{grid-template-columns:1fr;gap:10px;}
     #report-modal{padding:14px;}
     .report-inner{padding:22px;max-height:88vh;}
-    /* ATIVIDADES vira cartões */
+    /* ATIVIDADES viram cartões rótulo : valor */
     .act-header{display:none;}
-    .act-body-row{padding:16px 16px 16px 15px;margin:0 0 14px;border:1px solid var(--border);border-left-width:4px;border-radius:12px;background:var(--panel);box-shadow:0 6px 18px rgba(0,0,0,.28);}
+    .act-body-row{padding:15px 16px;margin:0 0 12px;border:1px solid var(--border);border-left-width:4px;border-radius:12px;background:var(--panel);box-shadow:0 6px 18px rgba(0,0,0,.28);}
     .act-body-row:last-child{margin-bottom:0;}
-    .act-body-row .act-grid{display:flex;flex-direction:column;gap:13px;}
-    .act-body-row .act-grid > *{width:100%;justify-content:flex-start !important;padding:0 !important;}
+    .act-body-row .act-grid{display:flex;flex-direction:column;gap:11px;}
+    .act-body-row .act-grid > *{width:100%;padding:0 !important;font-size:13px;}
     .act-body-row .c-num{display:none !important;}
-    .act-body-row .c-name{padding-bottom:4px !important;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:2px;}
-    .act-body-row .c-name span:nth-of-type(2),.act-body-row .c-name > div > div:last-child{font-size:14px !important;}
-    .act-body-row .cell[data-l]::before{content:attr(data-l);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;min-width:96px;display:inline-block;flex-shrink:0;}
-    .act-body-row .act-time-cell{line-height:1.5;text-align:left !important;}
-    .rt-input{width:88px;font-size:14px;}
-    .pct-inp{font-size:14px;width:52px;}
+    .act-body-row .c-name{justify-content:flex-start !important;padding-bottom:10px !important;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:2px;}
+    .act-body-row .c-name span{font-size:14px !important;}
+    .act-body-row .cell[data-l]{display:flex !important;justify-content:space-between !important;align-items:center;gap:12px;}
+    .act-body-row .cell[data-l]::before{content:attr(data-l);font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;flex-shrink:0;}
+    .act-body-row .act-time-cell{text-align:right !important;line-height:1.5;font-size:12px;}
+    .act-body-row .c-st .pill{font-size:9px;padding:5px 12px;}
+    .act-body-row .c-pct .pct-row{width:auto;max-width:62%;}
+    .rt-input{width:84px;font-size:14px;text-align:right;}
+    .pct-inp{font-size:14px;width:50px;}
     .pct-lbl{font-size:12px;}
+    .mini-bar{min-width:38px;}
+    .footer{flex-wrap:wrap;gap:10px;}
   }
   @media (max-width: 430px){
-    body{padding:11px;}
-    h1 > span:last-child{font-size:18px !important;}
-    .clock-time{font-size:23px;letter-spacing:2px;}
-    .stat-num{font-size:23px;}
-    .section-pad{padding:14px 16px;}
-    .act-body-row .cell[data-l]::before{min-width:84px;}
+    .brand-row img{height:32px !important;}
+    .act-body-row .cell[data-l]::before{font-size:8px;}
+    .type-val{letter-spacing:1px;}
   }
 
   /* ===== LOGIN ===== */
@@ -411,7 +404,7 @@ const PHASES = [
   {seq:36, vms:['TESTE-SISTEMAS']},
 ].map(p => ({...p, vmList: p.vms.map(mkVM)}));
 
-const BC_TABLE = [{"s": 1, "v": "bc-gma-ad-01", "a": "Produção", "st": "andamento"}, {"s": 1, "v": "bc-gma-ad-02", "a": "Produção", "st": "andamento"}, {"s": 1, "v": "BC-DMZ-AD-03", "a": "Produção", "st": "andamento"}, {"s": 2, "v": "GBSRVNFS01", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GIMBASQL", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB01", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB02", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB05", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB06", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB07", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBWEB08", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "gbecommerce-01", "a": "Produção", "st": "concluida"}, {"s": 3, "v": "gbecommerce-02", "a": "Produção", "st": "concluida"}, {"s": 3, "v": "gbecommerce-03", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "gbredis-01", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "gbredis-02", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "gbredis-03", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "SolrMaster", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "SolrSlave-01", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "SolrSlave-02", "a": "Produção", "st": "andamento"}, {"s": 3, "v": "GBSRVINDEX-01", "a": "Produção", "st": "andamento"}, {"s": 4, "v": "GBWEBSQL04", "a": "Produção", "st": "andamento"}, {"s": 4, "v": "BCGMAWEB05", "a": "Produção", "st": "andamento"}, {"s": 4, "v": "GBWEBSQL01", "a": "Produção", "st": "andamento"}, {"s": 5, "v": "GBWEBSQL02", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBARQUIVOS", "a": "Produção", "st": "pendente"}, {"s": 5, "v": "GBIIS1", "a": "Produção", "st": "andamento"}, {"s": 5, "v": "GBIIS6", "a": "Produção", "st": "andamento"}, {"s": 5, "v": "GBJITTERBIT", "a": "Produção", "st": "andamento"}, {"s": 6, "v": "ORADESENV", "a": "Não-Prod", "st": "pendente"}, {"s": 6, "v": "ORACLEPRD1", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "ADABASLINUX_CLONE", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "ORACLEERP", "a": "Produção", "st": "pendente"}, {"s": 6, "v": "GBBARRAMENTO", "a": "Produção", "st": "pendente"}, {"s": 7, "v": "GBWEBSQLDW01", "a": "Produção", "st": "pendente"}, {"s": 7, "v": "SRVBACKUP", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIPORTAL", "a": "Produção", "st": "andamento"}, {"s": 8, "v": "GBAPIGTP", "a": "Produção", "st": "andamento"}, {"s": 8, "v": "GBAPIG", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBAPIBD", "a": "Produção", "st": "pendente"}, {"s": 8, "v": "GBGOVMON", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "BCGBACESSO", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "BCGBSADIG", "a": "Produção", "st": "pendente"}, {"s": 9, "v": "GBGLPI", "a": "Produção", "st": "pendente"}, {"s": 10, "v": "GMA-EC-01", "a": "Produção", "st": "pendente"}, {"s": 11, "v": "REPLICATOR", "a": "Produção", "st": "pendente"}, {"s": 11, "v": "BC-DEVOPS", "a": "Produção", "st": "pendente"}, {"s": 12, "v": "GBSFTP", "a": "Produção", "st": "pendente"}, {"s": 13, "v": "ORACLEPRD4", "a": "Não-Prod", "st": "pendente"}, {"s": 13, "v": "DR_ADABASLINUX_CLONE", "a": "Não-Prod", "st": "pendente"}, {"s": 14, "v": "GBWEBSQL11", "a": "Não-Prod", "st": "pendente"}, {"s": 14, "v": "GBWEBSQL12", "a": "Não-Prod", "st": "pendente"}, {"s": 15, "v": "DR-ORACLEERP", "a": "Não-Prod", "st": "pendente"}, {"s": 16, "v": "nginx-oracle", "a": "Produção", "st": "pendente"}, {"s": 16, "v": "adabasdev", "a": "Não-Prod", "st": "pendente"}, {"s": 17, "v": "GBAGENTES_IA", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL3", "a": "Produção", "st": "pendente"}, {"s": 18, "v": "gbsrvtotall2", "a": "Produção", "st": "pendente"}, {"s": 19, "v": "BCGMAWEB07", "a": "Não-Prod", "st": "pendente"}, {"s": 20, "v": "BCGBOPERADOR", "a": "Produção", "st": "pendente"}, {"s": 22, "v": "GBDEVJITTERBIT", "a": "Não-Prod", "st": "pendente"}, {"s": 22, "v": "BCGBDEVIIS01", "a": "Não-Prod", "st": "pendente"}, {"s": 22, "v": "BCGBDEVSQL01", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLJITTERBIT", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLIIS01", "a": "Não-Prod", "st": "pendente"}, {"s": 23, "v": "GBHMLSQL01", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "BCGBDEVIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "SolrDev", "a": "Não-Prod", "st": "pendente"}, {"s": 24, "v": "GBDEVSQL03", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBNGINX-01-DEV-HML", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBNGINX-02-DEV-HML", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "BCGBHMLIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 25, "v": "GBHMLSQL03", "a": "Não-Prod", "st": "pendente"}, {"s": 26, "v": "BCGBAPREIIS03", "a": "Não-Prod", "st": "pendente"}, {"s": 26, "v": "GBAPRESQL3", "a": "Não-Prod", "st": "pendente"}, {"s": 27, "v": "BCGBHMLIIS03-N", "a": "Não-Prod", "st": "pendente"}, {"s": 28, "v": "GBDEVSQL02", "a": "Não-Prod", "st": "pendente"}, {"s": 28, "v": "BCGBDEVIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 29, "v": "BCGBHMLIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 29, "v": "GBHMLSQL02", "a": "Não-Prod", "st": "pendente"}, {"s": 30, "v": "ORACLEPRD03", "a": "Não-Prod", "st": "pendente"}, {"s": 31, "v": "BCGBAPREIIS02", "a": "Não-Prod", "st": "pendente"}, {"s": 31, "v": "GBAPRESQL2", "a": "Não-Prod", "st": "pendente"}, {"s": 32, "v": "GBDEVSQLDW01", "a": "Não-Prod", "st": "pendente"}, {"s": 33, "v": "GBAPREIIS1", "a": "Não-Prod", "st": "pendente"}, {"s": 33, "v": "GBAPRESQL1", "a": "Não-Prod", "st": "pendente"}, {"s": 34, "v": "GBDEVIIS03-PERF", "a": "Não-Prod", "st": "pendente"}, {"s": 35, "v": "GBSQUADVIRTUAL", "a": "Não-Prod", "st": "pendente"}, {"s": 36, "v": "TESTE-SISTEMAS", "a": "Não-Prod", "st": "pendente"}, {"s": "", "v": "BC-GMB-KSEC", "a": "Produção", "st": "pendente"}, {"s": "", "v": "oracle-ksek", "a": "Produção", "st": "pendente"}, {"s": "", "v": "LINUX-MANOBRA-VEEAM", "a": "Produção", "st": "pendente"}];
+const BC_TABLE = [{"s": 1, "v": "bc-gma-ad-01", "a": "", "st": "andamento"}, {"s": 1, "v": "bc-gma-ad-02", "a": "", "st": "andamento"}, {"s": 1, "v": "BC-DMZ-AD-03", "a": "", "st": "andamento"}, {"s": 2, "v": "GBSRVNFS01", "a": "", "st": "andamento"}, {"s": 3, "v": "GIMBASQL", "a": "", "st": "andamento"}, {"s": 3, "v": "GBWEB01", "a": "Firewall do Windows estava ligado", "st": "andamento"}, {"s": 3, "v": "GBWEB02", "a": "", "st": "andamento"}, {"s": 3, "v": "GBWEB05", "a": "", "st": "andamento"}, {"s": 3, "v": "GBWEB06", "a": "Firewall do Windows estava ligado", "st": "andamento"}, {"s": 3, "v": "GBWEB07", "a": "", "st": "andamento"}, {"s": 3, "v": "GBWEB08", "a": "", "st": "andamento"}, {"s": 3, "v": "gbecommerce-01", "a": "Servidor OK, só consigo testar aplicação com internet", "st": "concluida"}, {"s": 3, "v": "gbecommerce-02", "a": "Servidor OK, só consigo testar aplicação com internet", "st": "concluida"}, {"s": 3, "v": "gbecommerce-03", "a": "Servidor OK, só consigo testar aplicação com internet", "st": "andamento"}, {"s": 3, "v": "gbredis-01", "a": "", "st": "andamento"}, {"s": 3, "v": "gbredis-02", "a": "", "st": "andamento"}, {"s": 3, "v": "gbredis-03", "a": "", "st": "andamento"}, {"s": 3, "v": "SolrMaster", "a": "", "st": "andamento"}, {"s": 3, "v": "SolrSlave-01", "a": "", "st": "andamento"}, {"s": 3, "v": "SolrSlave-02", "a": "", "st": "andamento"}, {"s": 3, "v": "GBSRVINDEX-01", "a": "", "st": "andamento"}, {"s": 4, "v": "GBWEBSQL04", "a": "", "st": "andamento"}, {"s": 4, "v": "BCGMAWEB05", "a": "", "st": "andamento"}, {"s": 4, "v": "GBWEBSQL01", "a": "", "st": "andamento"}, {"s": 5, "v": "GBWEBSQL02", "a": "", "st": "andamento"}, {"s": 5, "v": "GBARQUIVOS", "a": "", "st": "pendente"}, {"s": 5, "v": "GBIIS1", "a": "", "st": "andamento"}, {"s": 5, "v": "GBIIS6", "a": "", "st": "andamento"}, {"s": 5, "v": "GBJITTERBIT", "a": "Servidor OK, só consigo testar aplicação com internet", "st": "andamento"}, {"s": 6, "v": "ORADESENV", "a": "Aguardando ORACLEERP para fazer mais testes", "st": "pendente"}, {"s": 6, "v": "ORACLEPRD1", "a": "LEMBRAR ERRO SSH com senha", "st": "pendente"}, {"s": 6, "v": "ADABASLINUX_CLONE", "a": "", "st": "pendente"}, {"s": 6, "v": "ORACLEERP", "a": "Dei reboot e perdeu a placa de rede", "st": "pendente"}, {"s": 6, "v": "GBBARRAMENTO", "a": "", "st": "andamento"}, {"s": 7, "v": "GBWEBSQLDW01", "a": "", "st": "pendente"}, {"s": 7, "v": "SRVBACKUP", "a": "", "st": "pendente"}, {"s": 8, "v": "GBAPIPORTAL", "a": "", "st": "andamento"}, {"s": 8, "v": "GBAPIGTP", "a": "", "st": "andamento"}, {"s": 8, "v": "GBAPIG", "a": "", "st": "pendente"}, {"s": 8, "v": "GBAPIBD", "a": "", "st": "pendente"}, {"s": 8, "v": "GBGOVMON", "a": "", "st": "pendente"}, {"s": 9, "v": "BCGBACESSO", "a": "", "st": "pendente"}, {"s": 9, "v": "BCGBSADIG", "a": "", "st": "pendente"}, {"s": 9, "v": "GBGLPI", "a": "", "st": "andamento"}, {"s": 10, "v": "GMA-EC-01", "a": "", "st": "andamento"}, {"s": 11, "v": "REPLICATOR", "a": "", "st": "pendente"}, {"s": 11, "v": "BC-DEVOPS", "a": "", "st": "pendente"}, {"s": 12, "v": "GBSFTP", "a": "", "st": "pendente"}, {"s": 13, "v": "ORACLEPRD4", "a": "LEMBRAR ERRO SSH com senha", "st": "pendente"}, {"s": 13, "v": "DR_ADABASLINUX_CLONE", "a": "", "st": "andamento"}, {"s": 14, "v": "GBWEBSQL11", "a": "", "st": "pendente"}, {"s": 14, "v": "GBWEBSQL12", "a": "", "st": "pendente"}, {"s": 15, "v": "DR-ORACLEERP", "a": "", "st": "pendente"}, {"s": 16, "v": "nginx-oracle", "a": "", "st": "pendente"}, {"s": 16, "v": "adabasdev", "a": "", "st": "pendente"}, {"s": 17, "v": "GBAGENTES_IA", "a": "", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL", "a": "", "st": "pendente"}, {"s": 18, "v": "GBSRVTOTALL3", "a": "", "st": "pendente"}, {"s": 18, "v": "gbsrvtotall2", "a": "", "st": "pendente"}, {"s": 19, "v": "BCGMAWEB07", "a": "", "st": "pendente"}, {"s": 20, "v": "BCGBOPERADOR", "a": "", "st": "pendente"}, {"s": 22, "v": "GBDEVJITTERBIT", "a": "", "st": "pendente"}, {"s": 22, "v": "BCGBDEVIIS01", "a": "", "st": "pendente"}, {"s": 22, "v": "BCGBDEVSQL01", "a": "", "st": "pendente"}, {"s": 23, "v": "GBHMLJITTERBIT", "a": "", "st": "pendente"}, {"s": 23, "v": "GBHMLIIS01", "a": "", "st": "pendente"}, {"s": 23, "v": "GBHMLSQL01", "a": "", "st": "pendente"}, {"s": 24, "v": "BCGBDEVIIS03", "a": "", "st": "pendente"}, {"s": 24, "v": "SolrDev", "a": "", "st": "pendente"}, {"s": 24, "v": "GBDEVSQL03", "a": "", "st": "pendente"}, {"s": 25, "v": "GBNGINX-01-DEV-HML", "a": "", "st": "pendente"}, {"s": 25, "v": "GBNGINX-02-DEV-HML", "a": "", "st": "pendente"}, {"s": 25, "v": "BCGBHMLIIS03", "a": "", "st": "pendente"}, {"s": 25, "v": "GBHMLSQL03", "a": "", "st": "pendente"}, {"s": 26, "v": "BCGBAPREIIS03", "a": "", "st": "pendente"}, {"s": 26, "v": "GBAPRESQL3", "a": "", "st": "pendente"}, {"s": 27, "v": "BCGBHMLIIS03-N", "a": "", "st": "pendente"}, {"s": 28, "v": "GBDEVSQL02", "a": "", "st": "pendente"}, {"s": 28, "v": "BCGBDEVIIS02", "a": "", "st": "pendente"}, {"s": 29, "v": "BCGBHMLIIS02", "a": "", "st": "pendente"}, {"s": 29, "v": "GBHMLSQL02", "a": "", "st": "pendente"}, {"s": 30, "v": "ORACLEPRD03", "a": "LEMBRAR ERRO SSH com senha", "st": "pendente"}, {"s": 31, "v": "BCGBAPREIIS02", "a": "", "st": "pendente"}, {"s": 31, "v": "GBAPRESQL2", "a": "", "st": "pendente"}, {"s": 32, "v": "GBDEVSQLDW01", "a": "", "st": "pendente"}, {"s": 33, "v": "GBAPREIIS1", "a": "", "st": "pendente"}, {"s": 33, "v": "GBAPRESQL1", "a": "", "st": "pendente"}, {"s": 34, "v": "GBDEVIIS03-PERF", "a": "", "st": "pendente"}, {"s": 35, "v": "GBSQUADVIRTUAL", "a": "", "st": "pendente"}, {"s": 36, "v": "TESTE-SISTEMAS", "a": "", "st": "pendente"}, {"s": "", "v": "BC-GMB-KSEC", "a": "", "st": "pendente"}, {"s": "", "v": "oracle-ksek", "a": "", "st": "pendente"}, {"s": "", "v": "LINUX-MANOBRA-VEEAM", "a": "", "st": "pendente"}];
 
 const ACTS = [
   {id:1, name:'Backup interno Gimba',                              desc:'', start:'', end:''},
