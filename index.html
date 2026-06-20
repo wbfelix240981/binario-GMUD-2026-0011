@@ -410,7 +410,7 @@ const ACTS = [
   {id:1, name:'Backup interno Gimba',                              desc:'', dia:'19/06', start:'', end:''},
   {id:2, name:'Bloquear tráfego de entrada de dados na Cloud 2.0',  desc:'', dia:'19/06', start:'', end:''},
   {id:3, name:'Reunião e validações com Operadora para troca de L2L', desc:'', dia:'20/06', start:'', end:''},
-  {id:5, name:'BC Migration',                                       desc:'93 VMs · regra: N=andamento · P=concluído (19-06)', dia:'20/06', start:'', end:'', vmTable:BC_TABLE},
+  {id:5, name:'BC Migration',                                       desc:'', dia:'20/06', start:'', end:'', vmTable:BC_TABLE},
   {id:6, name:'Validação - CSE',                                    desc:'', dia:'20/06', start:'', end:'', cseMetric:true},
   {id:7, name:'Validação - Gimba - Marcio',                         desc:'', dia:'21/06', start:'', end:''},
   {id:8, name:'Validação Gimba - Sistemas/Serviços',                desc:'', dia:'21/06', start:'', end:''},
@@ -472,7 +472,7 @@ function render() {
     row.innerHTML = `<div class="act-grid">
       <div style="display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);" class="mono c-num">${padZ(i+1)}</div>
       <div class="c-name" style="display:flex;align-items:center;justify-content:flex-start;padding:0 4px;">
-        <div>${(hp||ht)?`<span id="arrow-${eid}" onclick="togglePh('${eid}')" style="cursor:pointer;color:var(--accent);margin-right:6px;">▼</span>`:''}<span style="font-size:13px;color:var(--text);font-weight:600;">${act.name}</span><div style="font-size:10px;color:var(--muted);margin-top:2px;font-weight:700;">${act.desc}</div></div>
+        <div>${(hp||ht)?`<span id="arrow-${eid}" onclick="togglePh('${eid}')" style="cursor:pointer;color:var(--accent);margin-right:6px;">▼</span>`:''}<span style="font-size:13px;color:var(--text);font-weight:600;">${act.name}</span>${act.desc?`<div style="font-size:10px;color:var(--muted);margin-top:2px;font-weight:700;">${act.desc}</div>`:''}</div>
       </div>
       <div class="cell c-prev" data-l="Dia" style="display:flex;align-items:center;justify-content:center;"><div class="act-time-cell mono" style="color:var(--muted);font-weight:700;">${act.dia||'—'}</div></div>
       <div class="cell c-ini" data-l="Início real" style="display:flex;align-items:center;justify-content:center;"><input class="rt-input mono" style="color:var(--accent);font-weight:700;" type="text" placeholder="--:--" value="${act.startReal}" onchange="setReal(${i},'startReal',this.value)"></div>
