@@ -179,9 +179,83 @@
     .section-pad{padding:14px 16px;}
     .act-body-row .cell[data-l]::before{min-width:84px;}
   }
+
+  /* ===== LOGIN ===== */
+  #login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(900px 460px at 50% -10%,rgba(27,163,212,.12),transparent 60%),linear-gradient(165deg,#0c2334 0%,#0a1c29 45%,#07151d 100%);}
+  .lg-card{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--border);border-radius:14px;
+    padding:34px 30px 28px;box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative;}
+  .lg-logo{display:flex;justify-content:center;margin-bottom:16px;}
+  .lg-badge{display:block;text-align:center;font-family:ui-monospace,Consolas,monospace;font-size:11px;letter-spacing:1px;font-weight:700;
+    color:var(--accent);border:1px solid rgba(27,163,212,.45);background:rgba(27,163,212,.10);border-radius:6px;padding:4px 0;margin-bottom:14px;}
+  .lg-title{text-align:center;color:#fff;font-size:18px;font-weight:700;margin-bottom:4px;}
+  .lg-sub{text-align:center;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;}
+  .lg-field{margin-bottom:14px;}
+  .lg-field label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px;}
+  .lg-input{width:100%;background:#0b2030;border:1px solid var(--border);border-radius:8px;color:var(--text);
+    font-size:14px;padding:11px 13px;outline:none;transition:border-color .15s,box-shadow .15s;}
+  .lg-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(27,163,212,.18);}
+  .lg-btn{width:100%;margin-top:6px;background:linear-gradient(90deg,var(--accent),#1487b4);color:#fff;border:none;border-radius:8px;
+    font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px;cursor:pointer;transition:filter .15s,transform .1s;}
+  .lg-btn:hover{filter:brightness(1.08);} .lg-btn:active{transform:translateY(1px);}
+  .lg-err{display:none;color:var(--danger);font-size:11px;text-align:center;margin-top:12px;font-weight:600;}
+  .lg-foot{text-align:center;color:var(--muted);font-size:8px;letter-spacing:1.5px;margin-top:18px;text-transform:uppercase;}
+  .logout-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:5px;font-size:8px;
+    letter-spacing:2px;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-weight:700;transition:color .15s,border-color .15s;}
+  .logout-btn:hover{color:var(--danger);border-color:var(--danger);}
+  @media (max-width:430px){ .lg-card{padding:28px 22px;} }
 </style>
 </head>
 <body>
+
+<div id="login-screen">
+  <div class="lg-card">
+    <div class="lg-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 134" style="height:56px;width:auto;">
+        <path fill="#fff" d="M0 37.47c5.314 5.586 6.785 7.105 14.737 7.637 3.218.215 16.1-.545 18.023.483.895 1.426.656 6.237.654 8.106l-.026 19.726c-.011 10.5-1.348 19.524 7.078 27.314a21.56 21.56 0 0 0 9.912 5.287c5.098 1.183 10.288.454 14.745-2.347A19.3 19.3 0 0 0 73.8 91.617c.92-4.133.866-25.833.063-30.153a21.7 21.7 0 0 0-3.134-7.94 21 21 0 0 0-13.398-9.396c-4.348-.95-9.98-.492-14.51-.495-5.003-.004-8.4-2.914-6.89-8.173C40.68 18.9 56.355 15.934 71.232 19.6a48.13 48.13 0 0 1 29.83 21.853c7.318 12.108 6.957 22.173 6.816 35.729-.069 6.663.301 11.558-1.35 18.209a47.93 47.93 0 0 1-21.823 29.555c-10.73 6.452-19.823 7.126-32.003 6.883-6.391-.128-10.244.152-16.695-1.466a48 48 0 0 1-29.466-21.914A47.6 47.6 0 0 1 .744 93.397c-.15-.748-.34-1.967-.744-2.58z"/>
+        <path fill="#129ad7" d="M0 0h32.326c.69.96.868 1.792.996 2.935.766 6.866.231 15.977.215 23.02-.01 4.492.49 10.799-.2 15.113-.118.74-.2 1.44-.841 1.897-2.135 1.52-18.215.88-21.235.306-3.833-.728-6.59-2.068-8.82-5.36C1.41 36.393.896 34.75 0 33.237z"/>
+      </svg>
+    </div>
+    <span class="lg-badge">GMUD-2026-0011</span>
+    <div class="lg-title">Acesso Restrito</div>
+    <div class="lg-sub">Migração Cloud 2.0 → 3.0</div>
+    <div class="lg-field">
+      <label for="lg-user">Usuário</label>
+      <input id="lg-user" class="lg-input" type="text" autocomplete="username" placeholder="seu usuário" onkeydown="if(event.key==='Enter')document.getElementById('lg-pass').focus()">
+    </div>
+    <div class="lg-field">
+      <label for="lg-pass">Senha</label>
+      <input id="lg-pass" class="lg-input" type="password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')gmudLogin()">
+    </div>
+    <button class="lg-btn" onclick="gmudLogin()">Entrar</button>
+    <div id="lg-err" class="lg-err">Usuário ou senha inválidos.</div>
+    <div class="lg-foot">Binario Cloud · Gimba</div>
+  </div>
+</div>
+<script>
+  // === Lista de pessoas (usuário: senha) — EDITAR AQUI ===
+  const GMUD_USERS = {
+    'admin':  'binario@2026',
+    'gimba':  'gimba@2026',
+    'marcio': 'marcio@2026',
+    'cse':    'cse@2026'
+  };
+  function gmudLogin(){
+    const u=(document.getElementById('lg-user').value||'').trim().toLowerCase();
+    const p=document.getElementById('lg-pass').value||'';
+    if(Object.prototype.hasOwnProperty.call(GMUD_USERS,u) && GMUD_USERS[u]===p){
+      try{sessionStorage.setItem('gmud_auth',u);}catch(e){}
+      document.getElementById('login-screen').style.display='none';
+    }else{
+      document.getElementById('lg-err').style.display='block';
+      document.getElementById('lg-pass').value='';
+      document.getElementById('lg-pass').focus();
+    }
+  }
+  function gmudLogout(){ try{sessionStorage.removeItem('gmud_auth');}catch(e){} location.reload(); }
+  // já autenticado nesta sessão? esconde o login imediatamente
+  (function(){ try{ if(sessionStorage.getItem('gmud_auth')){ var el=document.getElementById('login-screen'); if(el) el.style.display='none'; } }catch(e){} })();
+</script>
 
 <!-- HEADER -->
 <div class="header">
@@ -280,7 +354,10 @@
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-txt mono">RESPONSÁVEL: <span contenteditable="true" style="color:var(--accent2);cursor:text;">Wagner Felix</span></div>
-  <div class="footer-txt mono" id="last-update">ÚLTIMA ATUALIZAÇÃO: --</div>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="footer-txt mono" id="last-update">ÚLTIMA ATUALIZAÇÃO: --</div>
+    <button class="logout-btn" onclick="gmudLogout()">Sair</button>
+  </div>
 </div>
 
 <script>
