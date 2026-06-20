@@ -333,14 +333,12 @@ const INIT = [
   {pct:0, status:'pending', startReal:'', endReal:''},
   {pct:0, status:'pending', startReal:'', endReal:''},
   {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'', endReal:''},
 ];
-let state = ACTS.map((a,i) => ({
-  ...a,
-  pct:       INIT[i].pct,
-  status:    INIT[i].status,
-  startReal: INIT[i].startReal,
-  endReal:   INIT[i].endReal,
-}));
+let state = ACTS.map((a,i) => {
+  const d = INIT[i] || {pct:0, status:'pending', startReal:'', endReal:''};
+  return { ...a, pct:d.pct, status:d.status, startReal:d.startReal, endReal:d.endReal };
+});
 
 let checkpoints = [];
 
