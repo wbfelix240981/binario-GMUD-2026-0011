@@ -328,7 +328,7 @@ const INIT = [
   {pct:100, status:'done', startReal:'20:00', endReal:'23:37'},
   {pct:100, status:'done', startReal:'23:38', endReal:'00:50'},
   {pct:100, status:'done', startReal:'01:00', endReal:'01:18'},
-  {pct:0, status:'pending', startReal:'', endReal:''},
+  {pct:0, status:'pending', startReal:'01:20', endReal:''},
   {pct:0, status:'pending', startReal:'', endReal:''},
   {pct:0, status:'pending', startReal:'', endReal:''},
   {pct:0, status:'pending', startReal:'', endReal:''},
@@ -351,6 +351,13 @@ function render() {
       act.pct    = calcPct(act.phases);
       act.status = act.pct===100 ? 'done' : act.pct>0 ? 'progress' : 'pending';
     }
+    if (ht) {
+      const vt = act.vmTable.filter(x=>x.st!=='naomigrar');
+      const dn = vt.filter(x=>x.st==='concluida').length;
+      const pg = vt.filter(x=>x.st==='andamento').length;
+      act.pct = vt.length ? Math.round(dn/vt.length*100) : 0;
+      act.status = act.pct===100 ? 'done' : (act.pct>0 || pg>0 || act.startReal) ? 'progress' : 'pending';
+    }
     const cancelled = act.status === 'blocked';
     const row = document.createElement('div');
     row.className = 'act-body-row';
@@ -363,9 +370,9 @@ function render() {
       <div class="cell c-prev" data-l="Previsão" style="display:flex;align-items:center;justify-content:center;"><div class="act-time-cell mono" style="color:var(--muted);font-weight:700;">${act.start}<br>${act.end}</div></div>
       <div class="cell c-ini" data-l="Início real" style="display:flex;align-items:center;justify-content:center;"><input class="rt-input mono" style="color:var(--accent);font-weight:700;" type="text" placeholder="--:--" value="${act.startReal}" onchange="setReal(${i},'startReal',this.value)"></div>
       <div class="cell c-fim" data-l="Fim real" style="display:flex;align-items:center;justify-content:center;"><input class="rt-input mono" style="color:var(--accent);font-weight:700;" type="text" placeholder="--:--" value="${act.endReal}" onchange="setReal(${i},'endReal',this.value)"></div>
-      <div class="cell c-st" data-l="Status" style="display:flex;align-items:center;justify-content:center;"><div class="pill ${SS[act.status]}" style="font-weight:700;"${hp?'':` onclick="cycleSt(${i})\"`}>${SL[act.status]}</div></div>
+      <div class="cell c-st" data-l="Status" style="display:flex;align-items:center;justify-content:center;"><div class="pill ${SS[act.status]}" style="font-weight:700;"${(hp||ht)?'':` onclick="cycleSt(${i})\"`}>${SL[act.status]}</div></div>
       <div class="cell c-pct" data-l="Conclusão" style="display:flex;align-items:center;justify-content:center;padding:0 4px;"><div class="pct-row">
-        <input class="pct-inp mono" style="color:var(--accent);font-weight:700;" type="number" min="0" max="100" value="${act.pct}"${hp?' readonly style="opacity:.5"':''} onchange="setPct(${i},this.value)" oninput="setPct(${i},this.value)">
+        <input class="pct-inp mono" style="color:var(--accent);font-weight:700;" type="number" min="0" max="100" value="${act.pct}"${(hp||ht)?' readonly style="opacity:.5"':''} onchange="setPct(${i},this.value)" oninput="setPct(${i},this.value)">
         <span class="pct-lbl" style="color:var(--muted);font-weight:700;">%</span>
         <div class="mini-bar"><div class="mini-fill" id="mf-${i}" style="width:${act.pct}%"></div></div>
       </div></div>
