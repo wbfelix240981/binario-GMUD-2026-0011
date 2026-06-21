@@ -411,8 +411,8 @@ const ACTS = [
   {id:2, name:'Bloquear tráfego de entrada de dados na Cloud 2.0',  desc:'', dia:'19/06', start:'', end:''},
   {id:3, name:'Reunião e validações com Operadora para troca de L2L', desc:'', dia:'20/06', start:'', end:''},
   {id:5, name:'BC Migration',                                       desc:'', dia:'20/06', start:'', end:'', vmTable:BC_TABLE},
-  {id:6, name:'Validação - CSE',                                    desc:'', dia:'20/06', start:'', end:'', cseMetric:true},
-  {id:7, name:'Validação - Gimba - Marcio',                         desc:'', dia:'20/06', start:'', end:'', gmMetric:true},
+  {id:6, name:'Validação - CSE (Somente PRD)',                                    desc:'', dia:'20/06', start:'', end:'', cseMetric:true},
+  {id:7, name:'Validação - Gimba - Marcio (Somente PRD)',                         desc:'', dia:'20/06', start:'', end:'', gmMetric:true},
   {id:8, name:'Validação Gimba - Sistemas/Serviços',                desc:'', dia:'21/06', start:'', end:''},
 ];
 
@@ -461,13 +461,13 @@ function render() {
       act.status = act.pct===100 ? 'done' : (act.pct>0 || pg>0 || act.startReal) ? 'progress' : 'pending';
     }
     if (hc) {
-      const T = BC_TABLE;
+      const T = BC_TABLE.filter(x=>x.a==='Produção');
       const dcN = T.filter(x=>x.dc).length;
       act.pct = T.length ? Math.round(dcN/T.length*100) : 0;
       act.status = act.pct===100 ? 'done' : (act.pct>0 || act.startReal) ? 'progress' : 'pending';
     }
     if (hg) {
-      const T = BC_TABLE;
+      const T = BC_TABLE.filter(x=>x.a==='Produção');
       const vgN = T.filter(x=>x.vg).length;
       act.pct = T.length ? Math.round(vgN/T.length*100) : 0;
       act.status = act.pct===100 ? 'done' : (act.pct>0 || act.startReal) ? 'progress' : 'pending';
