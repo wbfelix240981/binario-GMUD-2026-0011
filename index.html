@@ -196,6 +196,11 @@
   .logout-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:5px;font-size:8px;
     letter-spacing:2px;text-transform:uppercase;padding:6px 12px;cursor:pointer;font-weight:700;transition:color .15s,border-color .15s;}
   .logout-btn:hover{color:var(--danger);border-color:var(--danger);}
+  .lg-check{margin:6px auto 16px;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(43,212,180,.12);border:2px solid var(--accent2);box-shadow:0 0 0 7px rgba(43,212,180,.05);}
+  .lg-divider{width:46px;height:2px;border-radius:2px;background:var(--accent2);opacity:.5;margin:0 auto 16px;}
+  .lg-msg{text-align:center;color:var(--text);font-size:14.5px;line-height:1.75;font-weight:600;max-width:280px;margin:0 auto 8px;}
+  .lg-msg b{color:var(--accent2);}
+  .lg-msg-sub{text-align:center;color:var(--muted);font-size:12px;line-height:1.6;max-width:280px;margin:0 auto;}
   @media (max-width:430px){ .lg-card{padding:28px 22px;} }
 </style>
 </head>
@@ -210,18 +215,14 @@
       </svg>
     </div>
     <span class="lg-badge">GMUD-2026-0011</span>
-    <div class="lg-title">Acesso Restrito</div>
-    <div class="lg-sub">Migração Cloud 2.0 → 3.0</div>
-    <div class="lg-field">
-      <label for="lg-user">Usuário</label>
-      <input id="lg-user" class="lg-input" type="text" autocomplete="username" placeholder="seu usuário" onkeydown="if(event.key==='Enter')document.getElementById('lg-pass').focus()">
-    </div>
-    <div class="lg-field">
-      <label for="lg-pass">Senha</label>
-      <input id="lg-pass" class="lg-input" type="password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')gmudLogin()">
-    </div>
-    <button class="lg-btn" onclick="gmudLogin()">Entrar</button>
-    <div id="lg-err" class="lg-err">Usuário ou senha inválidos.</div>
+    
+    <div class="lg-check" aria-hidden="true"><svg viewBox="0 0 52 52" width="38" height="38"><path fill="none" stroke="var(--accent2)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M14 27l8 8 16-18"/></svg></div>
+    <div class="lg-title" style="color:var(--accent2);font-size:21px;letter-spacing:.3px;margin-bottom:6px;">GMUD Concluída</div>
+    <div class="lg-sub" style="margin-bottom:18px;">Migração Cloud 2.0 → 3.0</div>
+    <div class="lg-divider"></div>
+    <div class="lg-msg">A janela de migração foi <b>finalizada com sucesso</b>.</div>
+    <div class="lg-msg-sub">Obrigado pelo acompanhamento durante a execução desta GMUD.</div>
+
     <div class="lg-foot">Binario Cloud · Gimba</div>
   </div>
 </div>
@@ -242,7 +243,7 @@
   }
   function gmudLogout(){ try{sessionStorage.removeItem('gmud_auth');}catch(e){} location.reload(); }
   // já autenticado nesta sessão? esconde o login imediatamente
-  (function(){ try{ if(sessionStorage.getItem('gmud_auth')){ var el=document.getElementById('login-screen'); if(el) el.style.display='none'; } }catch(e){} })();
+  try{ sessionStorage.removeItem('gmud_auth'); }catch(e){}
 </script>
 
 <!-- HEADER -->
@@ -361,7 +362,7 @@
   <div class="footer-txt mono">RESPONSÁVEL: <span contenteditable="true" style="color:var(--accent2);cursor:text;">Wagner Felix</span></div>
   <div style="display:flex;align-items:center;gap:14px;">
     <div class="footer-txt mono" id="last-update">ÚLTIMA ATUALIZAÇÃO: --</div>
-    <button class="logout-btn" onclick="gmudLogout()">Sair</button>
+    
   </div>
 </div>
 
